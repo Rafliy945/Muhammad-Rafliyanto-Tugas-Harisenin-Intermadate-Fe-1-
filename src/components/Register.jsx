@@ -63,7 +63,7 @@ const Register = ({ setCurrentPage, setUser }) => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/poster/bangku.jpg')",
+          backgroundImage: "url('/bangku.jpg')",
         }}
       />
 
