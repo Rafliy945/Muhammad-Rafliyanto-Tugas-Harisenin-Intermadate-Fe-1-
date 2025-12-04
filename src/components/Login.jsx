@@ -119,7 +119,7 @@ const Login = ({ setCurrentPage, setUser }) => {
       {/* Background */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('bangku.jpg')" }}
+        style={{ backgroundImage: "url('/poster/bangku.jpg')" }}
         aria-hidden="true"
       />
       <div className="absolute inset-0 z-10 bg-black/55" />
