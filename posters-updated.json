@@ -1,0 +1,562 @@
+[
+  {
+    "title": "Avengers: Endgame",
+    "oldImage": "https://image.tmdb.org/t/p/w500/bR8ISy1O9XQxqiy0fQFw2BX72RQ.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=TcMBFSGVi1c",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:53.075Z"
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "oldImage": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=JfVOs4VSpmA",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:53.984Z"
+  },
+  {
+    "title": "Guardians of The Galaxy Vol. 3",
+    "oldImage": "https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=8aGQ8I1T1xk",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:54.885Z"
+  },
+  {
+    "title": "Oppenheimer",
+    "oldImage": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=7C6m9XJzmZs",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:55.813Z"
+  },
+  {
+    "title": "The Tomorrow War",
+    "oldImage": "https://image.tmdb.org/t/p/w500/34nDCQZwaEvsy4CFO5hkGRFDCVU.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=6w0Q4p4RaxY",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:56.725Z"
+  },
+  {
+    "title": "Dune",
+    "oldImage": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=n9xhJrPXop4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:57.628Z"
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "oldImage": "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=giXco2jaZ_4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:58.535Z"
+  },
+  {
+    "title": "Avatar: The Way of Water",
+    "oldImage": "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=QdEoGLaVYTI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:15:59.433Z"
+  },
+  {
+    "title": "John Wick: Chapter 4",
+    "oldImage": "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=J0ZfS26Z6Hc",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:00.426Z"
+  },
+  {
+    "title": "A Man Called Otto",
+    "oldImage": "https://image.tmdb.org/t/p/w500/130H1gap9lFfiTF9iDrqNIkFvC9.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ku1x-kdYQuI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:01.327Z"
+  },
+  {
+    "title": "The Super Mario Bros. Movie",
+    "oldImage": "https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=EJ2-8jR0A7s",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:02.228Z"
+  },
+  {
+    "title": "Barbie",
+    "oldImage": "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ZlW8oB0CLZs",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:03.231Z"
+  },
+  {
+    "title": "Gundala",
+    "oldImage": "https://image.tmdb.org/t/p/w500/wZCo5qUz3IdIhs6466B9PpFglXU.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=8rauD1vxMCw",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:04.138Z"
+  },
+  {
+    "title": "Perempuan Tanah Jahanam",
+    "oldImage": "https://image.tmdb.org/t/p/w500/dku2KnAPALsi69MnvTV7cXrylWm.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=XY7falovJiI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:05.036Z"
+  },
+  {
+    "title": "Imperfect",
+    "oldImage": "https://image.tmdb.org/t/p/w500/oAXh1z25tVmm9bOhC0QrZxWUd17.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=f4Sc26vQHcU",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:05.948Z"
+  },
+  {
+    "title": "Dilan 1991",
+    "oldImage": "https://image.tmdb.org/t/p/w500/jvhtHrO4g767iInsfLm9USy47mH.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=nwhB2Hb7g5c",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:06.878Z"
+  },
+  {
+    "title": "Nanti Kita Cerita tentang Hari Ini",
+    "oldImage": "https://image.tmdb.org/t/p/w500/n84V5KItbDoTQiWSzxGVbixnpzJ.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=TcHh986XvI4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:07.775Z"
+  },
+  {
+    "title": "KKN di Desa Penari",
+    "oldImage": "https://image.tmdb.org/t/p/w500/wyRVXRygEOPpjTIcDz3z7ZXLZ45.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=jtDRXPTZT-M",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:08.681Z"
+  },
+  {
+    "title": "Breaking Bad",
+    "oldImage": "https://image.tmdb.org/t/p/w500/AttDP5OEsMxtHPPN7Z92p2Ntnmd.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=HhesaQXLuRY",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:09.589Z"
+  },
+  {
+    "title": "Stranger Things",
+    "oldImage": "https://image.tmdb.org/t/p/w500/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=b9EkMc79ZSU",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:10.518Z"
+  },
+  {
+    "title": "The Last of Us",
+    "oldImage": "https://image.tmdb.org/t/p/w500/ka1Bcy9w7YOroUXMJe2aZPadkkm.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=JzV8wyf-6us",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:11.427Z"
+  },
+  {
+    "title": "Wednesday",
+    "oldImage": "https://image.tmdb.org/t/p/w500/9PFonBhy4cQy7Jz20NpMygczOkv.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=jqxENMKaeCU",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:12.328Z"
+  },
+  {
+    "title": "The Crown",
+    "oldImage": "https://image.tmdb.org/t/p/w500/wq3vr4YQ2xQNyqrIA6YHf3Q6rX2.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=JWtnJjn6ng0",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:13.234Z"
+  },
+  {
+    "title": "Squid Game",
+    "oldImage": "https://image.tmdb.org/t/p/w500/ugBNsE1pQHmCukd0YXz16Yf97ZF.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=oqxAJKy0ii4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:14.139Z"
+  },
+  {
+    "title": "The Mandalorian",
+    "oldImage": "https://image.tmdb.org/t/p/w500/jJDP4gyTB30xMbUViOvU3YoZngF.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=aOC8E8z_ifw",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:15.060Z"
+  },
+  {
+    "title": "The Witcher",
+    "oldImage": "https://image.tmdb.org/t/p/w500/mN6cVMyUhJBcNAley0zdFomImvl.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ndl1W4ltcmg",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:15.968Z"
+  },
+  {
+    "title": "House of the Dragon",
+    "oldImage": "https://image.tmdb.org/t/p/w500/bCtTBcYAjZsicbDzLSCXaML8lzy.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=V7g6d2mA3gk",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:16.911Z"
+  },
+  {
+    "title": "All Of Us Are Dead",
+    "oldImage": "https://image.tmdb.org/t/p/w500/dK0iDbSulVLS7nMLt65ztY0XhBj.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=IN5TD4VRcSM",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:17.815Z"
+  },
+  {
+    "title": "Duty After School",
+    "oldImage": "https://image.tmdb.org/t/p/w500/urKNdB0LXavc777PkhHJGxNgSdB.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ZhRMm2WQJD0",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:18.715Z"
+  },
+  {
+    "title": "Alice in Borderland",
+    "oldImage": "https://image.tmdb.org/t/p/w500/gazU0r4oZ4Lteax2Y75Tuyozece.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=49_44FFKZ1M",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:19.623Z"
+  },
+  {
+    "title": "My Hero Academia",
+    "oldImage": "https://image.tmdb.org/t/p/w500/8ZKANacIuUC441vHza7DBMNPaKV.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=fXbY97v2k4s",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:20.529Z"
+  },
+  {
+    "title": "Attack on Titan",
+    "oldImage": "https://image.tmdb.org/t/p/w500/uW7tTRElr2tRhmAVESzvHy4ByXg.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=MGRm4IzK1SQ",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:21.443Z"
+  },
+  {
+    "title": "Demon Slayer",
+    "oldImage": "https://image.tmdb.org/t/p/w500/4lu9oJgRLbyR6IUsRfSvsfSh7VK.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=x7uLutVRBfI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:22.343Z"
+  },
+  {
+    "title": "TED Lasso",
+    "oldImage": "https://image.tmdb.org/t/p/w500/qZtAf4Z1lazGQoYVXiHOrvL5Hvd.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=3u7EIiohs6U",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:23.257Z"
+  },
+  {
+    "title": "The Bear",
+    "oldImage": "https://image.tmdb.org/t/p/w500/cE37xoRTHPabJUeEVmTXqNCrxwT.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=vOyRo-Yjr2Q",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:24.163Z"
+  },
+  {
+    "title": "One Piece",
+    "oldImage": "https://image.tmdb.org/t/p/w500/xAqu2Z1uvtDLOGIp5tkmaXtwrRU.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=l6kp780S-os",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:25.071Z"
+  },
+  {
+    "title": "Peaky Blinders",
+    "oldImage": "https://www.themoviedb.org/movie/710832-peaky-blinders-the-true-story",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=example_peaky",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:26.068Z"
+  },
+  {
+    "title": "Dark",
+    "oldImage": "https://image.tmdb.org/t/p/w500/bXQDZj79irceldVGLzL6RFdyC4Z.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=example_dark",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:26.987Z"
+  },
+  {
+    "title": "Avengers: Endgame",
+    "oldImage": "https://image.tmdb.org/t/p/w500/bR8ISy1O9XQxqiy0fQFw2BX72RQ.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=TcMBFSGVi1c",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:27.877Z"
+  },
+  {
+    "title": "Spider-Man: No Way Home",
+    "oldImage": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=JfVOs4VSpmA",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:28.778Z"
+  },
+  {
+    "title": "Guardians of The Galaxy Vol. 3",
+    "oldImage": "https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgii51I3.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=8aGQ8I1T1xk",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:29.671Z"
+  },
+  {
+    "title": "Oppenheimer",
+    "oldImage": "https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=7C6m9XJzmZs",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:30.564Z"
+  },
+  {
+    "title": "The Tomorrow War",
+    "oldImage": "https://image.tmdb.org/t/p/w500/34nDCQZwaEvsy4CFO5hkGRFDCVU.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=6w0Q4p4RaxY",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:31.461Z"
+  },
+  {
+    "title": "Dune",
+    "oldImage": "https://image.tmdb.org/t/p/w500/d5NXSklXo0qyIYkgV94XAgMIckC.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=n9xhJrPXop4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:32.350Z"
+  },
+  {
+    "title": "Top Gun: Maverick",
+    "oldImage": "https://image.tmdb.org/t/p/w500/62HCnUTziyWcpDaBO2i1DX17ljH.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=giXco2jaZ_4",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:33.239Z"
+  },
+  {
+    "title": "Avatar: The Way of Water",
+    "oldImage": "https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=QdEoGLaVYTI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:34.124Z"
+  },
+  {
+    "title": "John Wick: Chapter 4",
+    "oldImage": "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=J0ZfS26Z6Hc",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:35.012Z"
+  },
+  {
+    "title": "A Man Called Otto",
+    "oldImage": "https://image.tmdb.org/t/p/w500/130H1gap9lFfiTF9iDrqNIkFvC9.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ku1x-kdYQuI",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:35.907Z"
+  },
+  {
+    "title": "The Super Mario Bros. Movie",
+    "oldImage": "https://image.tmdb.org/t/p/w500/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=EJ2-8jR0A7s",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:36.791Z"
+  },
+  {
+    "title": "Barbie",
+    "oldImage": "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=ZlW8oB0CLZs",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:37.679Z"
+  },
+  {
+    "title": "Breaking Bad",
+    "oldImage": "https://image.tmdb.org/t/p/w500/AttDP5OEsMxtHPPN7Z92p2Ntnmd.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=HhesaQXLuRY",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:38.578Z"
+  },
+  {
+    "title": "Stranger Things",
+    "oldImage": "https://images.unsplash.com/photo-1574267432644-f610f5ac14fe?w=300&h=450&fit=crop",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=b9EkMc79ZSU",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:39.463Z"
+  },
+  {
+    "title": "The Last of Us",
+    "oldImage": "https://image.tmdb.org/t/p/w500/ka1Bcy9w7YOroUXMJe2aZPadkkm.jpg",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=JzV8wyf-6us",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:40.350Z"
+  },
+  {
+    "title": "Wednesday",
+    "oldImage": "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=300&h=450&fit=crop",
+    "newImage": null,
+    "oldTrailer": "https://www.youtube.com/watch?v=jqxENMKaeCU",
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:41.238Z"
+  },
+  {
+    "title": "Peaky Blinders",
+    "oldImage": "https://image.tmdb.org/t/p/w500/3vY2bqv8s2h1Z2qzO1g4F6i6r.jpg",
+    "newImage": null,
+    "oldTrailer": null,
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:42.132Z"
+  },
+  {
+    "title": "Dark",
+    "oldImage": "https://image.tmdb.org/t/p/w500/bXQDZj79irceldVGLzL6RFdyC4Z.jpg",
+    "newImage": null,
+    "oldTrailer": null,
+    "newTrailer": null,
+    "tmdbId": null,
+    "tmdbType": null,
+    "timestamp": "2025-11-26T15:16:43.028Z"
+  }
+]

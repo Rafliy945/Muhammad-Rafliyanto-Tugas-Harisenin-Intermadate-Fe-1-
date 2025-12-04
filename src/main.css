@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* small helpers */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* --- Fix modal / root height & modal z-index --- */
+html, body, #root {
+  height: 100%;
+}
+
+/* modal root higher than header (header z-50) */
+.modal-root {
+  z-index: 60; /* lebih tinggi dari header */
+}
+
+/* ensure full-screen centering works on mobile */
+.modal-centered {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* optional: make scrollbars hidden smooth for mobile modal */
+.modal-scrollable {
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ========== New: Force transparent inputs (including when browser autofills) ========== */
+/* ensure inputs inside card remain transparent and text remains white */
+input, textarea, select {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important; /* for Safari/Chrome text color */
+  caret-color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Override Chrome/Edge autofill background */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important; /* keep text white */
+}
+
+/* Some browsers still apply background on autofill on focus */
+input:-internal-autofill-selected,
+input:-internal-autofill-previewed {
+  background-color: transparent !important;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Remove default inner focus glow if any */
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Utility used in components to guarantee transparent inputs */
+.netflixed-input {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  color: #fff !important;
+}
+
+/* ========== Scrollbar: hide track/white and keep subtle thumb ========== */
+/* Hide for modal specifically (.scrollbar-none) */
+.scrollbar-none::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.scrollbar-none::-webkit-scrollbar-track {
+  background: transparent; /* remove white track */
+}
+.scrollbar-none::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.06); /* subtle thumb */
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+.scrollbar-none {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.06) transparent;
+  -ms-overflow-style: none; /* for Internet Explorer and Edge */
+}
+
+/* small helper */
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hidden-scrollbar::-webkit-scrollbar { display: none; }
+
+/* ==== Strong overrides to force fully transparent inputs (incl. autofill) ==== */
+
+/* base: keep inputs transparent and white text */
+input, textarea, select {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff !important;
+  box-shadow: none !important;
+  appearance: none;
+  -webkit-appearance: none;
+  background-clip: padding-box; /* avoid inset fill artifacts */
+}
+
+/* specific utility class already used in components */
+.netflixed-input {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* ===== Chrome / Edge autofill (covers normal, hover, focus states) ===== */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important; /* force transparent */
+  box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Extra: target the .netflixed-input when autofilled */
+.netflixed-input:-webkit-autofill,
+.netflixed-input:-webkit-autofill:hover,
+.netflixed-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
+  box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
+  background-color: transparent !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+/* Firefox autofill */
+input:-moz-autofill,
+textarea:-moz-autofill,
+select:-moz-autofill {
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  background-color: transparent !important;
+  -moz-text-fill-color: #fff !important;
+}
+
+/* ensure no outline/inner glow remains */
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Scrollbar styling for modal (keep subtle, not white) */
+.scrollbar-none::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-none::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-none::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.06);
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.02);
+}
+.scrollbar-none {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.06) transparent;
+}
+
+/* small safety: keep netflixed-input highest specificity if other CSS exists */
+body .netflixed-input {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  color: #fff !important;
+}

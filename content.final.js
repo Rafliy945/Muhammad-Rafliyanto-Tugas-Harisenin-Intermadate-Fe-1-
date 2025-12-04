@@ -1,0 +1,1 @@
+export const moviesData=[]; export const seriesData=[];
