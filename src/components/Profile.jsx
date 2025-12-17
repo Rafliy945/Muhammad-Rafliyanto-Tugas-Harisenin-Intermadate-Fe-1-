@@ -477,7 +477,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
             {/* LEFT: Logo & Copyright */}
             <div className="mb-8 max-w-xs">
               <div className="flex items-center gap-3 mb-6">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
                 <h3 className="text-white font-bold text-3xl tracking-wide">
                   CHILL
                 </h3>
@@ -505,7 +505,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                       <FooterGenreButton name="Kejahatan" />
                       <FooterGenreButton name="KDrama" />
                   </div>
-                  {/* Col 3 */}
+                 
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Komedi" />
                       <FooterGenreButton name="Petualangan" />
