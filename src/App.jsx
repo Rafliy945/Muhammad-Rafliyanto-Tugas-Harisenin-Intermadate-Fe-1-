@@ -169,7 +169,7 @@ const App = () => {
     if (currentPage !== 'series' && currentPage !== 'film') {
       setCurrentPage('film');
     }
-    // Jika sudah di 'series', biarkan di 'series' tapi terapkan filter
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -177,7 +177,6 @@ const App = () => {
     alert(`Maaf, halaman "${pageName}" belum tersedia saat ini.`);
   };
 
-  // Helper render button footer agar tidak repetitive
   const FooterGenreButton = ({ name }) => (
     <button 
       onClick={() => handleGenreClick(name)}
@@ -195,7 +194,7 @@ const App = () => {
       {name}
     </button>
   );
-  // -------------------------------
+
 
   // Logic Rendering Login/Register/Profile/Premium
   if (currentPage === 'login') return <Login setCurrentPage={setCurrentPage} setUser={setUser} />;
@@ -514,7 +513,7 @@ const App = () => {
               {/* Logo & Copyright */}
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
-                  <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
+                  <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
                   <h3 className="text-white font-bold text-2xl">
                     CHILL
                   </h3>
@@ -560,7 +559,7 @@ const App = () => {
               {/* LEFT: Logo & Copyright */}
               <div className="mb-8 max-w-xs">
                 <div className="flex items-center gap-3 mb-6">
-                  <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
+                  <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
                   <h3 className="text-white font-bold text-3xl tracking-wide">
                     CHILL
                   </h3>
@@ -574,28 +573,28 @@ const App = () => {
                 <div>
                   <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
                   <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
-                    {/* Col 1 */}
+                    
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Aksi" />
                         <FooterGenreButton name="Anak-anak" />
                         <FooterGenreButton name="Anime" />
                         <FooterGenreButton name="Britania" />
                     </div>
-                    {/* Col 2 */}
+             
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Drama" />
                         <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
                         <FooterGenreButton name="Kejahatan" />
                         <FooterGenreButton name="KDrama" />
                     </div>
-                    {/* Col 3 */}
+               
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Komedi" />
                         <FooterGenreButton name="Petualangan" />
                         <FooterGenreButton name="Perang" />
                         <FooterGenreButton name="Romantis" />
                     </div>
-                     {/* Col 4 */}
+                   
                      <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Sains & Alam" />
                         <FooterGenreButton name="Thriller" />
