@@ -431,7 +431,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
             {/* Logo & Copyright (LOGO TETAP) */}
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
                 <h3 className="text-white font-bold text-2xl">
                   CHILL
                 </h3>
