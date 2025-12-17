@@ -1,4 +1,4 @@
-// UPDATED HEADER.JSX — Logo and Text matched with Footer style
+
 import React, { useEffect, useState } from "react";
 import { Menu, X, Search } from "lucide-react";
 
@@ -66,8 +66,6 @@ export default function Header({
 
           {/* BAGIAN KIRI: LOGO & NAV */}
           <div className="flex items-center gap-2">
-            
-            {/* --- UPDATE: LOGO & TEKS CHILL (Sesuai Footer) --- */}
             <button
               onClick={() => gotoPage("home")}
               className="flex items-center gap-2 lg:gap-3"
@@ -80,7 +78,6 @@ export default function Header({
                 CHILL
               </span>
             </button>
-            {/* ------------------------------------------------ */}
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6 ml-6">
@@ -210,14 +207,14 @@ export default function Header({
       >
         <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
           
-          {/* --- UPDATE: LOGO DRAWER MOBILE (Sesuai Footer) --- */}
+          {/* --- UPDATE: LOGO DRAWER MOBILE */}
           <div className="flex items-center gap-2">
             <img src="/public/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="text-white font-bold text-2xl tracking-wide">
               CHILL
             </span>
           </div>
-          {/* ------------------------------------------------ */}
+        
 
           <button onClick={() => setMobileOpen(false)} className="p-1 text-gray-400 hover:text-white transition-colors">
             <X size={24} />
