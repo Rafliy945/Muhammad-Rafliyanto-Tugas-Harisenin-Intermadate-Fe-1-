@@ -422,7 +422,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
         </div>
       </div>
 
-      {/* Footer - Interaktif (Logo TETAP, Fitur SAMA DENGAN APP.JSX) */}
+      {/* Footer - Interaktif  */}
       <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12 w-full mt-auto">
         <div className="max-w-7xl mx-auto">
           
