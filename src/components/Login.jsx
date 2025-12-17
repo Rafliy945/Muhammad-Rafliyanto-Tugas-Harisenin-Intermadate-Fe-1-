@@ -155,16 +155,7 @@ const Login = ({ setCurrentPage, setUser }) => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
-                  <span
-                    className="text-3xl font-bold"
-                    style={{
-                      color: NEON_RED,
-                      textShadow:
-                        "0 0 6px rgba(229,9,20,0.9), 0 0 20px rgba(229,9,20,0.35)",
-                    }}
-                  >
-                    🎬
-                  </span>
+                  <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
                   <h1
                     className="text-2xl font-extrabold"
                     style={{
