@@ -163,7 +163,7 @@ const Login = ({ setCurrentPage, setUser }) => {
                         "0 0 6px rgba(229,9,20,0.9), 0 0 20px rgba(229,9,20,0.35)",
                     }}
                   >
-                    🎬
+                    <img src="/icons/logo-chill.png" alt="Logo Chill"/>
                   </span>
                   <h1
                     className="text-2xl font-extrabold"
