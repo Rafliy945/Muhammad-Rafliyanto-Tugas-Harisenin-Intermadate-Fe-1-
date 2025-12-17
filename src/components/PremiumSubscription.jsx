@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Menambahkan props setCurrentPage dan setSelectedGenre agar footer berfungsi
 const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, closeModal, setCurrentPage, setSelectedGenre }) => {
   const [selectedPlan, setSelectedPlan] = useState("berdua");
 
@@ -42,7 +41,7 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
       {name}
     </button>
   );
-  // -------------------------------
+ 
 
   const benefits = [
     { icon: "download", title: "Download Konten Pilihan" },
@@ -193,13 +192,13 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
         </div>
       </div>
 
-      {/* Footer - Updated: Logo Tetap, Genre & Bantuan Interaktif */}
+      {/* Footer */}
       <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12 mt-16">
         <div className="max-w-7xl mx-auto">
           
           {/* Mobile View - Accordion Style */}
           <div className="lg:hidden">
-            {/* Logo & Copyright (TIDAK DIUBAH) */}
+            {/* Logo & Copyright  */}
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
                 <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
@@ -245,7 +244,7 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
 
           {/* DESKTOP VIEW */}
           <div className="hidden lg:flex justify-between items-start">
-            {/* LEFT: Logo & Copyright (TIDAK DIUBAH) */}
+            {/* LEFT: Logo & Copyright  */}
             <div className="mb-8 max-w-xs">
               <div className="flex items-center gap-3 mb-6">
                 <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
