@@ -5,20 +5,18 @@ import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
+import PremiumSubscription from './components/PremiumSubscription';
 import { getUser } from './auth';
 import { moviesData, seriesData } from './data/content';
 import MovieRow from './components/MovieRow';
 import MovieDetailModal from './components/MovieDetailModal';
-import PremiumModal from './components/PremiumModal';
 
 const App = () => {
   const [user, setUser] = useState(getUser());
   const [currentPage, setCurrentPage] = useState(user ? 'home' : 'login');
   
-
   const [heroVisible, setHeroVisible] = useState(false);
   useEffect(() => { const t = setTimeout(()=>setHeroVisible(true), 120); return ()=>clearTimeout(t); }, []);
-  const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [myList, setMyList] = useState([]);
 
@@ -36,8 +34,12 @@ const App = () => {
   const [isBuffering, setIsBuffering] = useState(false);
   const VISIBILITY_THRESHOLD = 0.5;
   
-
-  const allGenres = ['All', 'Aksi', 'Drama', 'Komedi', 'Thriller', 'Fantasi Ilmiah', 'Horror', 'Romantis', 'Petualangan', 'Anime', 'Kejahatan', 'Anak-anak'];
+  // Updated allGenres to match Footer
+  const allGenres = [
+    'All', 'Aksi', 'Drama', 'Komedi', 'Thriller', 'Fantasi Ilmiah', 
+    'Horror', 'Romantis', 'Petualangan', 'Anime', 'Kejahatan', 'Anak-anak',
+    'Sains & Alam', 'Britania', 'KDrama', 'Perang', 'Fantasi Ilmiah & Fantasi'
+  ];
 
   const ytOpts = {
     height: '100%',
@@ -112,7 +114,6 @@ const App = () => {
     };
   }, []);
 
-  // search results ref for scrollIntoView
   const searchResultsRef = useRef(null);
 
   useEffect(() => {
@@ -161,9 +162,96 @@ const App = () => {
     if (state === YT.PlayerState.PAUSED) setIsHeroPlaying(false);
   };
 
-  // Logic Rendering Login/Register
+  // --- NEW HANDLERS FOR FOOTER ---
+  const handleGenreClick = (genre) => {
+    setSelectedGenre(genre);
+    // Jika user ada di home/profile/mylist, pindahkan ke 'film' agar hasil filter terlihat
+    if (currentPage !== 'series' && currentPage !== 'film') {
+      setCurrentPage('film');
+    }
+    // Jika sudah di 'series', biarkan di 'series' tapi terapkan filter
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleHelpClick = (pageName) => {
+    alert(`Maaf, halaman "${pageName}" belum tersedia saat ini.`);
+  };
+
+  // Helper render button footer agar tidak repetitive
+  const FooterGenreButton = ({ name }) => (
+    <button 
+      onClick={() => handleGenreClick(name)}
+      className="text-gray-300 hover:text-white transition-colors text-left text-sm"
+    >
+      {name}
+    </button>
+  );
+
+  const FooterHelpButton = ({ name }) => (
+    <button 
+      onClick={() => handleHelpClick(name)}
+      className="text-sm text-gray-300 hover:text-white transition-colors text-left"
+    >
+      {name}
+    </button>
+  );
+  // -------------------------------
+
+  // Logic Rendering Login/Register/Profile/Premium
   if (currentPage === 'login') return <Login setCurrentPage={setCurrentPage} setUser={setUser} />;
   if (currentPage === 'register') return <Register setCurrentPage={setCurrentPage} setUser={setUser} />;
+  
+  if (currentPage === 'premium') {
+    return (
+      <>
+        <Header
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSelectedGenre={setSelectedGenre}
+          user={user}
+          setUser={setUser}
+        />
+        <PremiumSubscription 
+          user={user}
+          setUser={setUser}
+          setShowPremiumModal={() => {}}
+          isModal={false}
+          closeModal={() => setCurrentPage('home')}
+        />
+      </>
+    );
+  }
+  
+  if (currentPage === 'profile') {
+    return (
+      <>
+        <Header
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          showSearch={showSearch}
+          setShowSearch={setShowSearch}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          setSelectedGenre={setSelectedGenre}
+          user={user}
+          setUser={setUser}
+        />
+        <Profile 
+          user={user}
+          setUser={setUser}
+          myList={myList}
+          toggleMyList={toggleMyList}
+          setShowPremiumModal={() => setCurrentPage('premium')}
+          setCurrentPage={setCurrentPage}
+          movies={[...moviesData, ...seriesData]}
+        />
+      </>
+    );
+  }
 
   return (
     <>
@@ -228,8 +316,7 @@ const App = () => {
           </div>
 
           <img src="poster/Rectangle 9.png" alt="Hero Poster" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${ytReady ? "opacity-0 pointer-events-none" : "opacity-100"}`} />
-<div className="relative z-20 px-6 pt-20 pb-8 lg:pt-50 lg:pb-28 max-w-7xl mx-auto">
-
+          <div className="relative z-20 px-6 pt-20 pb-8 lg:pt-50 lg:pb-28 max-w-7xl mx-auto">
 
             <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-12">
               <div className="flex-1 lg:max-w-2xl">
@@ -237,25 +324,22 @@ const App = () => {
                   Duty After School
                 </h2>
 
-                {/* GENRE: Hidden on mobile, visible on lg+ */}
                 <div className="hidden lg:flex items-center gap-3 flex-wrap mt-4 lg:mt-6">
                   <span className="text-xs bg-black/60 text-white px-3 py-1 rounded-full">Fantasi Ilmiah</span>
                   <span className="text-xs bg-black/60 text-white px-3 py-1 rounded-full">Drama</span>
                   <span className="text-xs bg-black/60 text-white px-3 py-1 rounded-full">Thriller</span>
-                  <span className="ml-2 text-sm text-yellow-300">⭐ 4.4/5</span>
-                  <span className="text-sm text-gray-300 ml-2">• 2023</span>
+                  <span className="ml-2 text-sm text-yellow-300">★ 4.4/5</span>
+                  <span className="text-sm text-gray-300 ml-2">│ 2023</span>
                 </div>
-<p className="text-gray-200 mt-5 text-xs sm:text-sm max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-3">
-                
+                <p className="text-gray-200 mt-5 text-xs sm:text-sm max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-3">
                   Sebuah benda tak dikenal mengambil alih dunia. Departemen Pertahanan merekrut siswa jadi pejuang.
                 </p>
               </div>
 
-              <div className="w-full lg:w-auto flex flex-row lg:flex-col items-start lg:items-end gap-2 sm:gap 2 mt 10 lg:mt-0">
-                <div className="flex gap 1 sm:gap 3 flex-wrap lg:flex-col lg:items-end items-center">
-                  {/* Mulai - smaller on mobile */}
+              <div className="w-full lg:w-auto flex flex-row lg:flex-col items-start lg:items-end gap-2 sm:gap-2 mt-10 lg:mt-0">
+                <div className="flex gap-1 sm:gap-3 flex-wrap lg:flex-col lg:items-end items-center">
                   <button
-                    onClick={() => setShowPremiumModal(true)}
+                    onClick={() => setCurrentPage('premium')}
                     className="bg-[#2563EB] text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 sm:gap-3 font-semibold transition-transform duration-200 hover:scale-105 active:scale-95 shadow-lg lg:shadow-none"
                     aria-label="Mulai"
                     style={{ boxShadow: '0 8px 20px rgba(37,99,235,0.18)' }}
@@ -263,17 +347,14 @@ const App = () => {
                     <Play size={10} /> Mulai
                   </button>
 
-                  {/* Selengkapnya - smaller on mobile */}
                   <button
                     onClick={() => setSelectedMovie(seriesData.find(s => s.id === 31))}
                     className="bg-transparent border border-white/20 text-white px-4 py-2 rounded-full text-xs sm:text-sm transition-transform duration-200 hover:scale-102 active:scale-95"
                     aria-label="Selengkapnya"
                   >
-                   
                     Selengkapnya
                   </button>
 
-                  {/* 18+ and Mute */}
                   <div className="flex items-center gap-50 sm:gap-50 mt-0.5 lg:mt-4">
                     <span className="text-sm bg-gray-900/60 text-white px-3 py-1 rounded-full">18+</span>
                     <button
@@ -326,43 +407,39 @@ const App = () => {
             </div>
           )}
 
-          
-        {/* === HASIL PENCARIAN SAMA PERSIS SETTING HOME === */}
-{searchQuery && (
-  (() => {
-    const results = filterContent([...moviesData, ...seriesData]);
-    const hasResults = results.length > 0;
+          {searchQuery && (
+            (() => {
+              const results = filterContent([...moviesData, ...seriesData]);
+              const hasResults = results.length > 0;
 
-    return (
-      <div
-        ref={searchResultsRef}
-        className="px-6 md:px-12 mt-6 z-50 relative"
-        style={{ scrollMarginTop: '100px' }}
-      >
-        <h2 className="text-white text-2xl font-semibold mb-6">
-          Hasil Pencarian: "{searchQuery}"
-        </h2>
+              return (
+                <div
+                  ref={searchResultsRef}
+                  className="px-6 md:px-12 mt-6 z-50 relative"
+                  style={{ scrollMarginTop: '100px' }}
+                >
+                  <h2 className="text-white text-2xl font-semibold mb-6">
+                    Hasil Pencarian: "{searchQuery}"
+                  </h2>
 
-        {hasResults ? (
-          <MovieRow
-            title={`Hasil: ${results.length} hasil`}
-            movies={results}
-            setSelectedMovie={setSelectedMovie}
-            toggleMyList={toggleMyList}
-            isInMyList={isInMyList}
-
-            /* === INI YANG BIKIN SAMA PERSIS DENGAN HOME === */
-            thumbnailClass="w-56 h-80 md:w-64 md:h-96"
-          />
-        ) : (
-          <p className="text-gray-400 text-center py-10">
-            Tidak ada hasil ditemukan
-          </p>
-        )}
-      </div>
-    );
-  })()
-)}
+                  {hasResults ? (
+                    <MovieRow
+                      title={`Hasil: ${results.length} hasil`}
+                      movies={results}
+                      setSelectedMovie={setSelectedMovie}
+                      toggleMyList={toggleMyList}
+                      isInMyList={isInMyList}
+                      thumbnailClass="w-56 h-80 md:w-64 md:h-96"
+                    />
+                  ) : (
+                    <p className="text-gray-400 text-center py-10">
+                      Tidak ada hasil ditemukan
+                    </p>
+                  )}
+                </div>
+              );
+            })()
+          )}
 
           {currentPage === 'home' && (
             <>
@@ -428,54 +505,121 @@ const App = () => {
           )}
         </div>
 
-        {/* Footer */}
-        <footer className="bg-black border-t border-gray-800 py-8 px-12">
+        {/* Footer - Interaktif */}
+        <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-white text-xl font-bold flex items-center gap-2">🎬 CHILL</h3>
+            
+            {/* Mobile View - Accordion Style */}
+            <div className="lg:hidden">
+              {/* Logo & Copyright */}
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
+                  <h3 className="text-white font-bold text-2xl">
+                    CHILL
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-400">
+                  @2023 Chill All Rights Reserved.
+                </p>
+              </div>
+
+              {/* Genre Accordion */}
+              <details className="border-b border-gray-800 py-4">
+                <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
+                  Genre
+                  <svg className="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </summary>
+                <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
+                  {['Aksi', 'Drama', 'Komedi', 'Sains & Alam', 'Anak-anak', 'Fantasi Ilmiah & Fantasi', 'Petualangan', 'Thriller', 'Anime', 'Kejahatan', 'Perang', 'Britania', 'KDrama', 'Romantis'].map(genre => (
+                     <FooterGenreButton key={genre} name={genre} />
+                  ))}
+                </div>
+              </details>
+
+              {/* Bantuan Accordion */}
+              <details className="border-b border-gray-800 py-4">
+                <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
+                  Bantuan
+                  <svg className="w-5 h-5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </summary>
+                <div className="mt-4 flex flex-col gap-3">
+                  {['FAQ', 'Kontak Kami', 'Privasi', 'Syarat & Ketentuan'].map(item => (
+                    <FooterHelpButton key={item} name={item} />
+                  ))}
+                </div>
+              </details>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-              <div>
-                <h4 className="text-white font-semibold mb-4">Genre</h4>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li><a href="#" className="hover:text-white">Aksi</a></li>
-                  <li><a href="#" className="hover:text-white">Anak-anak</a></li>
-                  <li><a href="#" className="hover:text-white">Anime</a></li>
-                  <li><a href="#" className="hover:text-white">Britania</a></li>
-                </ul>
+
+            {/* DESKTOP VIEW - Interaktif */}
+            <div className="hidden lg:flex justify-between items-start">
+              {/* LEFT: Logo & Copyright */}
+              <div className="mb-8 max-w-xs">
+                <div className="flex items-center gap-3 mb-6">
+                  <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
+                  <h3 className="text-white font-bold text-3xl tracking-wide">
+                    CHILL
+                  </h3>
+                </div>
+                <p className="text-sm text-gray-400">@2023 Chill All Rights Reserved.</p>
               </div>
-              <div>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li><a href="#" className="hover:text-white">Drama</a></li>
-                  <li><a href="#" className="hover:text-white">Fantasi Ilmiah & Fantasi</a></li>
-                  <li><a href="#" className="hover:text-white">Kejahatan</a></li>
-                  <li><a href="#" className="hover:text-white">KDrama</a></li>
-                </ul>
-              </div>
-              <div>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li><a href="#" className="hover:text-white">Komedi</a></li>
-                  <li><a href="#" className="hover:text-white">Petualangan</a></li>
-                  <li><a href="#" className="hover:text-white">Perang</a></li>
-                  <li><a href="#" className="hover:text-white">Romantis</a></li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="text-white font-semibold mb-4">Bantuan</h4>
-                <ul className="space-y-2 text-gray-400 text-sm">
-                  <li><a href="#" className="hover:text-white">FAQ</a></li>
-                  <li><a href="#" className="hover:text-white">Kontak Kami</a></li>
-                  <li><a href="#" className="hover:text-white">Privasi</a></li>
-                  <li><a href="#" className="hover:text-white">Syarat & Ketentuan</a></li>
-                </ul>
+
+              {/* Right Side - Genre & Bantuan */}
+              <div className="flex gap-16 xl:gap-24">
+                {/* Genre Section - Grid Columns */}
+                <div>
+                  <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
+                  <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
+                    {/* Col 1 */}
+                    <div className="flex flex-col gap-4">
+                        <FooterGenreButton name="Aksi" />
+                        <FooterGenreButton name="Anak-anak" />
+                        <FooterGenreButton name="Anime" />
+                        <FooterGenreButton name="Britania" />
+                    </div>
+                    {/* Col 2 */}
+                    <div className="flex flex-col gap-4">
+                        <FooterGenreButton name="Drama" />
+                        <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
+                        <FooterGenreButton name="Kejahatan" />
+                        <FooterGenreButton name="KDrama" />
+                    </div>
+                    {/* Col 3 */}
+                    <div className="flex flex-col gap-4">
+                        <FooterGenreButton name="Komedi" />
+                        <FooterGenreButton name="Petualangan" />
+                        <FooterGenreButton name="Perang" />
+                        <FooterGenreButton name="Romantis" />
+                    </div>
+                     {/* Col 4 */}
+                     <div className="flex flex-col gap-4">
+                        <FooterGenreButton name="Sains & Alam" />
+                        <FooterGenreButton name="Thriller" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bantuan Section */}
+                <div>
+                  <h4 className="text-white text-lg font-bold mb-6">Bantuan</h4>
+                  <div className="flex flex-col gap-4 text-sm">
+                    <FooterHelpButton name="FAQ" />
+                    <FooterHelpButton name="Kontak Kami" />
+                    <FooterHelpButton name="Privasi" />
+                    <FooterHelpButton name="Syarat & Ketentuan" />
+                  </div>
+                </div>
               </div>
             </div>
-            <p className="text-gray-400 text-sm text-center">@2023 Chill All Rights Reserved.</p>
+
           </div>
         </footer>
 
         {/* Modals */}
-        {showPremiumModal && <PremiumModal setShowPremiumModal={setShowPremiumModal} />}
         {selectedMovie && (
           <MovieDetailModal
             selectedMovie={selectedMovie}

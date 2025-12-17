@@ -2,20 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* small helpers */
-.scrollbar-hide::-webkit-scrollbar { display: none; }
+/* Import Londrina Solid Font */
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@100;300;400;900&display=swap');
 
-/* --- Fix modal / root height & modal z-index --- */
+/* Import Poppins Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Logo Text Utility Class - UPDATED TO LONDRINA SOLID */
+.logo-text {
+  font-family: "Londrina Solid", cursive !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: 50px !important;
+  line-height: 110% !important;
+  letter-spacing: 0% !important;
+  text-align: center;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/* Mobile/Drawer Logo Size */
+.logo-text--mobile {
+  font-size: 36px !important;
+}
+
+/* Root Font Variable */
+:root {
+  --app-font: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+body {
+  font-family: var(--app-font);
+}
+
+/* Small helpers */
+.scrollbar-hide::-webkit-scrollbar { 
+  display: none; 
+}
+
+/* Fix modal / root height & modal z-index */
 html, body, #root {
   height: 100%;
 }
 
-/* modal root higher than header (header z-50) */
+/* Modal root higher than header (header z-50) */
 .modal-root {
-  z-index: 60; /* lebih tinggi dari header */
+  z-index: 60;
 }
 
-/* ensure full-screen centering works on mobile */
+/* Ensure full-screen centering works on mobile */
 .modal-centered {
   min-height: 100vh;
   display: flex;
@@ -23,85 +58,14 @@ html, body, #root {
   justify-content: center;
 }
 
-/* optional: make scrollbars hidden smooth for mobile modal */
+/* Optional: make scrollbars hidden smooth for mobile modal */
 .modal-scrollable {
   max-height: 92vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-/* ========== New: Force transparent inputs (including when browser autofills) ========== */
-/* ensure inputs inside card remain transparent and text remains white */
-input, textarea, select {
-  background-color: transparent !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important; /* for Safari/Chrome text color */
-  caret-color: #ffffff !important;
-  box-shadow: none !important;
-}
-
-/* Override Chrome/Edge autofill background */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-  box-shadow: 0 0 0px 1000px transparent inset !important;
-  -webkit-text-fill-color: #ffffff !important; /* keep text white */
-}
-
-/* Some browsers still apply background on autofill on focus */
-input:-internal-autofill-selected,
-input:-internal-autofill-previewed {
-  background-color: transparent !important;
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-  box-shadow: 0 0 0px 1000px transparent inset !important;
-  -webkit-text-fill-color: #ffffff !important;
-}
-
-/* Remove default inner focus glow if any */
-input:focus, textarea:focus, select:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* Utility used in components to guarantee transparent inputs */
-.netflixed-input {
-  background: transparent !important;
-  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-  box-shadow: 0 0 0 1000px transparent inset !important;
-  color: #fff !important;
-}
-
-/* ========== Scrollbar: hide track/white and keep subtle thumb ========== */
-/* Hide for modal specifically (.scrollbar-none) */
-.scrollbar-none::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.scrollbar-none::-webkit-scrollbar-track {
-  background: transparent; /* remove white track */
-}
-.scrollbar-none::-webkit-scrollbar-thumb {
-  background-color: rgba(255,255,255,0.06); /* subtle thumb */
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.02);
-}
-.scrollbar-none {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.06) transparent;
-  -ms-overflow-style: none; /* for Internet Explorer and Edge */
-}
-
-/* small helper */
-.hidden-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.hidden-scrollbar::-webkit-scrollbar { display: none; }
-
-/* ==== Strong overrides to force fully transparent inputs (incl. autofill) ==== */
-
-/* base: keep inputs transparent and white text */
+/* Force transparent inputs (including when browser autofills) */
 input, textarea, select {
   background-color: transparent !important;
   color: #ffffff !important;
@@ -110,19 +74,10 @@ input, textarea, select {
   box-shadow: none !important;
   appearance: none;
   -webkit-appearance: none;
-  background-clip: padding-box; /* avoid inset fill artifacts */
+  background-clip: padding-box;
 }
 
-/* specific utility class already used in components */
-.netflixed-input {
-  background: transparent !important;
-  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
-  box-shadow: 0 0 0 1000px transparent inset !important;
-  color: #fff !important;
-  -webkit-text-fill-color: #fff !important;
-}
-
-/* ===== Chrome / Edge autofill (covers normal, hover, focus states) ===== */
+/* Override Chrome/Edge autofill background */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -132,7 +87,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important; /* force transparent */
+  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
   box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
   background-color: transparent !important;
   background: transparent !important;
@@ -140,13 +95,12 @@ select:-webkit-autofill:focus {
   color: #ffffff !important;
 }
 
-/* Extra: target the .netflixed-input when autofilled */
-.netflixed-input:-webkit-autofill,
-.netflixed-input:-webkit-autofill:hover,
-.netflixed-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
-  box-shadow: 0 0 0 1000px rgba(0,0,0,0) inset !important;
-  background-color: transparent !important;
+/* Utility class for transparent inputs */
+.netflixed-input {
+  background: transparent !important;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
 
@@ -159,7 +113,7 @@ select:-moz-autofill {
   -moz-text-fill-color: #fff !important;
 }
 
-/* ensure no outline/inner glow remains */
+/* Remove default inner focus glow if any */
 input:focus, textarea:focus, select:focus {
   outline: none !important;
   box-shadow: none !important;
@@ -168,24 +122,254 @@ input:focus, textarea:focus, select:focus {
 /* Scrollbar styling for modal (keep subtle, not white) */
 .scrollbar-none::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
+
 .scrollbar-none::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .scrollbar-none::-webkit-scrollbar-thumb {
   background-color: rgba(255,255,255,0.06);
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.02);
 }
+
 .scrollbar-none {
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,0.06) transparent;
+  -ms-overflow-style: none;
 }
 
-/* small safety: keep netflixed-input highest specificity if other CSS exists */
+/* Small helper */
+.hidden-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hidden-scrollbar::-webkit-scrollbar { 
+  display: none; 
+}
+
+/* Safety: keep netflixed-input highest specificity */
 body .netflixed-input {
   background: transparent !important;
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
   box-shadow: 0 0 0 1000px transparent inset !important;
   color: #fff !important;
+}
+
+/* ========== Premium Subscription Specific Styles ========== */
+
+/* Benefit Cards Styling */
+.benefit-card {
+  background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.benefit-card:hover {
+  border-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.benefit-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+}
+
+/* Plan Cards Styling */
+.plan-card {
+  background: linear-gradient(145deg, #111, #000);
+  border: 2px solid #333;
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.plan-card:hover {
+  border-color: #444;
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.plan-card.selected {
+  border-color: #3b82f6;
+  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+}
+
+.plan-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.plan-card.selected::after {
+  opacity: 1;
+}
+
+/* Popular Badge */
+.popular-badge {
+  background: linear-gradient(90deg, #8b5cf6, #ec4899, #8b5cf6);
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Genre Grid */
+.genre-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .genre-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .genre-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Premium Button */
+.premium-btn {
+  background: linear-gradient(90deg, #2563eb, #7c3aed, #2563eb);
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.premium-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+}
+
+.premium-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.premium-btn:hover::before {
+  left: 100%;
+}
+
+/* Premium Modal Overrides */
+.premium-modal-content {
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  border: 1px solid #333;
+  border-radius: 20px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .premium-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .premium-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .plan-card {
+    padding: 1.5rem;
+  }
+  
+  .benefit-card {
+    padding: 1.25rem;
+  }
+}
+
+/* Text styles for premium section */
+.premium-title {
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(90deg, #fff, #aaa, #fff);
+  background-size: 200% 100%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.premium-price {
+  font-weight: 800;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Features list styling */
+.premium-feature {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.premium-feature::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #10b981;
+  font-weight: bold;
+}
+
+/* Divider styling */
+.premium-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #444, transparent);
+  margin: 2rem 0;
+}
+
+/* Footer copyright */
+.premium-copyright {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #333;
 }

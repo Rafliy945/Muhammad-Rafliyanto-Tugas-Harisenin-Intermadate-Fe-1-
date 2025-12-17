@@ -1,66 +1,125 @@
+// src/auth.js
+const USERS_KEY = "chill_users";
 
-
-export function getUsers() {
+// Get all users from localStorage
+export const getUsers = () => {
   try {
-    const raw = localStorage.getItem('users');
-    return raw ? JSON.parse(raw) : [];
-  } catch (err) {
-    console.error('getUsers error', err);
+    const data = localStorage.getItem(USERS_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch {
     return [];
   }
-}
+};
 
-export function addUser({ username, password }) {
-  if (!username || !password) throw new Error('Username dan password wajib diisi');
-  const users = getUsers();
-  const exists = users.some(u => u.username && u.username.toLowerCase() === username.toLowerCase());
-  if (exists) {
-    const err = new Error('USERNAME_EXISTS');
-    err.code = 'USERNAME_EXISTS';
-    throw err;
+// Save users to localStorage
+const saveUsers = (users) => {
+  try {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users));
+  } catch (e) {
+    console.error("Failed to save users", e);
   }
-  // Tambahkan properti premium: false secara default
-  const newUser = { username, password, premium: false }; 
+};
+
+// Add a new user
+export const addUser = ({ username, email, password, phone = "" }) => {
+  const users = getUsers();
+  
+  // Check if username already exists
+  if (users.find((u) => u.username.toLowerCase() === username.toLowerCase())) {
+    throw new Error("USERNAME_EXISTS");
+  }
+  
+  // Check if email already exists
+  if (users.find((u) => u.email && u.email.toLowerCase() === email.toLowerCase())) {
+    throw new Error("EMAIL_EXISTS");
+  }
+  
+  const newUser = { 
+    username, 
+    email,
+    password, 
+    phone, 
+    premium: false 
+  };
+  
   users.push(newUser);
-  localStorage.setItem('users', JSON.stringify(users));
+  saveUsers(users);
   return newUser;
-}
+};
 
-export function validateLogin(username, password) {
+// Validate login (username or email)
+export const validateLogin = (identifier, password) => {
   const users = getUsers();
-  const user = users.find(u => u.username.toLowerCase() === (username || '').toLowerCase());
-  if (!user) return null;
-  if (user.password !== password) return null;
-  // Return user object tanpa password, termasuk status premium
-  return { username: user.username, premium: user.premium || false };
-}
-
-export function saveCurrentUser(user) {
-  try {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    return true;
-  } catch (err) {
-    console.error('saveCurrentUser', err);
-    return false;
+  const lowerIdentifier = identifier.toLowerCase();
+  
+  const user = users.find(
+    (u) => 
+      (u.username.toLowerCase() === lowerIdentifier || 
+       (u.email && u.email.toLowerCase() === lowerIdentifier)) &&
+      u.password === password
+  );
+  
+  if (user) {
+    return { 
+      username: user.username, 
+      email: user.email,
+      phone: user.phone,
+      premium: user.premium || false 
+    };
   }
-}
+  return null;
+};
 
-export function getUser() {
+// Save current logged-in user
+export const saveCurrentUser = (user) => {
   try {
-    const raw = localStorage.getItem('currentUser');
-    return raw ? JSON.parse(raw) : null;
-  } catch (err) {
-    console.error('getUser', err);
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  } catch (e) {
+    console.error("Failed to save current user", e);
+  }
+};
+
+// Get current logged-in user
+export const getUser = () => {
+  try {
+    const data = localStorage.getItem("currentUser");
+    return data ? JSON.parse(data) : null;
+  } catch {
     return null;
   }
-}
+};
 
-export function logoutUser() {
-  try {
-    localStorage.removeItem('currentUser');
-    return true;
-  } catch (err) {
-    console.error('logoutUser', err);
-    return false;
+// Update user data
+export const updateUser = (username, updates) => {
+  const users = getUsers();
+  const index = users.findIndex((u) => u.username === username);
+  
+  if (index !== -1) {
+    // Check if email is being updated and already exists
+    if (updates.email && updates.email !== users[index].email) {
+      const emailExists = users.find(
+        (u, i) => i !== index && u.email && u.email.toLowerCase() === updates.email.toLowerCase()
+      );
+      if (emailExists) {
+        throw new Error("EMAIL_EXISTS");
+      }
+    }
+    
+    users[index] = { ...users[index], ...updates };
+    saveUsers(users);
+    
+    // Update current user in localStorage if it's the same user
+    const currentUser = getUser();
+    if (currentUser && currentUser.username === username) {
+      saveCurrentUser(users[index]);
+    }
+    
+    return users[index];
   }
-}
+  return null;
+};
+
+// Upgrade to premium
+export const upgradeToPremium = (username) => {
+  return updateUser(username, { premium: true });
+};

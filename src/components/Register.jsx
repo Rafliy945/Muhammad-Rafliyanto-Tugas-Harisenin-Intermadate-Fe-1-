@@ -8,6 +8,7 @@ const Register = ({ setCurrentPage, setUser }) => {
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -21,34 +22,64 @@ const Register = ({ setCurrentPage, setUser }) => {
     return () => (document.body.style.overflow = prev || "");
   }, []);
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   const handleRegister = (e) => {
     e.preventDefault();
     setErr("");
-    if (!username.trim() || !password || !confirmPassword) {
-      setErr("Semua field wajib diisi.");
+    
+    if (!username.trim() || !email.trim() || !password || !confirmPassword) {
+      setErr("Username, email, dan kata sandi wajib diisi.");
       return;
     }
+    
+    if (!validateEmail(email)) {
+      setErr("Format email tidak valid.");
+      return;
+    }
+    
     if (password !== confirmPassword) {
       setErr("Kata sandi tidak cocok.");
       return;
     }
+    
+    if (password.length < 6) {
+      setErr("Kata sandi minimal 6 karakter.");
+      return;
+    }
+    
     setLoading(true);
     try {
-      const newUser = addUser({ username: username.trim(), password, phone });
+      const newUser = addUser({ 
+        username: username.trim(), 
+        email: email.trim(),
+        password, 
+        phone: phone.trim() 
+      });
+      
       saveCurrentUser({
         username: newUser.username,
-        premium: false,
+        email: newUser.email,
         phone: newUser.phone,
+        premium: false,
       });
+      
       setUser({
         username: newUser.username,
-        premium: false,
+        email: newUser.email,
         phone: newUser.phone,
+        premium: false,
       });
+      
       setCurrentPage("home");
     } catch (error) {
       if (error.message === "USERNAME_EXISTS") {
         setErr("Username sudah terdaftar.");
+      } else if (error.message === "EMAIL_EXISTS") {
+        setErr("Email sudah terdaftar.");
       } else {
         setErr("Terjadi kesalahan.");
       }
@@ -122,14 +153,26 @@ const Register = ({ setCurrentPage, setUser }) => {
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>
               </div>
 
-              <form onSubmit={handleRegister} className="space-y-4">
+              <form onSubmit={handleRegister} className="space-y-4" autoComplete="off">
                 <div style={{ animationDelay: "160ms" }}>
                   <label className="block text-sm text-gray-300 mb-1">Username</label>
                   <input
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="Masukkan username"
-                    autoComplete="username"
+                    autoComplete="off"
+                    className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 focus:ring-0 transition-all"
+                  />
+                </div>
+
+                <div style={{ animationDelay: "170ms" }}>
+                  <label className="block text-sm text-gray-300 mb-1">Email</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="email@example.com"
+                    autoComplete="off"
                     className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 focus:ring-0 transition-all"
                   />
                 </div>
@@ -140,7 +183,7 @@ const Register = ({ setCurrentPage, setUser }) => {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="0812xxxxxxx"
-                    autoComplete="tel"
+                    autoComplete="off"
                     className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 transition-all"
                   />
                 </div>
@@ -152,7 +195,7 @@ const Register = ({ setCurrentPage, setUser }) => {
                       type={showPass1 ? "text" : "password"}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Masukkan kata sandi"
+                      placeholder="Minimal 6 karakter"
                       autoComplete="new-password"
                       className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 transition-all"
                     />
@@ -169,7 +212,7 @@ const Register = ({ setCurrentPage, setUser }) => {
                       type={showPass2 ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Masukkan kata sandi"
+                      placeholder="Masukkan ulang kata sandi"
                       autoComplete="new-password"
                       className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 transition-all"
                     />
@@ -206,6 +249,7 @@ const Register = ({ setCurrentPage, setUser }) => {
 
                 <div style={{ animationDelay: "360ms" }}>
                   <button
+                    type="button"
                     className="w-full flex items-center justify-center gap-2 border border-gray-700 rounded-full py-3 text-white transition-colors"
                     onMouseEnter={(e) => (e.currentTarget.style.background = NEON_RED)}
                     onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}

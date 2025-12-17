@@ -1,51 +1,38 @@
 import React from "react";
+import PremiumSubscription from "./PremiumSubscription";
 
-const PremiumModal = ({ show, close, user, setUser }) => {
+const PremiumModal = ({ show, close, user, setUser, setShowPremiumModal }) => {
   if (!show) return null;
 
-  const upgrade = () => {
-    const updated = { ...user, premium: true };
-    setUser(updated);
-    localStorage.setItem("currentUser", JSON.stringify(updated));
-    close();
-  };
-
   return (
-    <div className="fixed inset-0 z-[90] flex items-center justify-center transition">
-      <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+    <>
+      {/* Overlay */}
+      <div 
         onClick={close}
+        className="fixed inset-0 bg-black/80 z-[9990]"
       />
+      
+      {/* Modal Content */}
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-[90%] max-w-4xl h-[90vh] overflow-auto bg-black rounded-2xl border border-gray-700">
+        {/* Tombol X */}
+        <button
+          onClick={close}
+          className="absolute top-4 right-4 z-10 text-gray-400 hover:text-white bg-black/80 rounded-full p-2 hover:bg-black transition-colors"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
 
-      <div className="relative w-11/12 max-w-lg bg-[#111] p-8 rounded-2xl border border-gray-700 text-white">
-        <h1 className="text-2xl font-bold mb-3">Upgrade ke Premium ⭐</h1>
-
-        <p className="text-gray-300 mb-6">
-          Nikmati streaming tanpa iklan, kualitas 4K, dan konten eksklusif!
-        </p>
-
-        <div className="bg-[#1a1a1a] p-5 rounded-xl border border-gray-700 mb-6">
-          <h2 className="text-xl font-semibold mb-2">Paket Premium</h2>
-          <p className="text-gray-400 mb-1">Akses 30 Hari • Tanpa Iklan</p>
-          <p className="text-3xl font-bold text-blue-400 mb-3">Rp 35.000</p>
-        </div>
-
-        <div className="flex gap-3">
-          <button
-            onClick={upgrade}
-            className="flex-1 py-3 bg-blue-600 rounded-lg hover:bg-blue-700"
-          >
-            Bayar Sekarang
-          </button>
-          <button
-            onClick={close}
-            className="flex-1 py-3 bg-gray-700 rounded-lg hover:bg-gray-600"
-          >
-            Batal
-          </button>
-        </div>
+        <PremiumSubscription
+          user={user}
+          setUser={setUser}
+          setShowPremiumModal={setShowPremiumModal}
+          isModal={true}
+          closeModal={close}
+        />
       </div>
-    </div>
+    </>
   );
 };
 

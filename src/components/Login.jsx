@@ -13,7 +13,7 @@ const inputInlineStyle = {
 };
 
 const Login = ({ setCurrentPage, setUser }) => {
-  const [username, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [err, setErr] = useState("");
@@ -29,23 +29,20 @@ const Login = ({ setCurrentPage, setUser }) => {
     };
   }, []);
 
-  // Strong autofill/workaround: set readonly briefly, set autocomplete off, and force inline styles
+  // Strong autofill/workaround
   useEffect(() => {
     const form = formRef.current;
     if (!form) return;
 
     const inputs = Array.from(form.querySelectorAll("input"));
 
-    // set attributes to reduce browser autofill attempts
     inputs.forEach((el) => {
       try {
         el.setAttribute("autocomplete", "off");
         el.setAttribute("autocorrect", "off");
         el.setAttribute("autocapitalize", "off");
         el.setAttribute("spellcheck", "false");
-        // make readonly briefly to prevent some autofill behaviours
         el.setAttribute("readonly", "true");
-        // apply inline style immediately
         Object.assign(el.style, {
           backgroundColor: "transparent",
           WebkitBoxShadow: "0 0 0 1000px transparent inset",
@@ -54,16 +51,13 @@ const Login = ({ setCurrentPage, setUser }) => {
           color: "#ffffff",
         });
       } catch (e) {}
-      // remove readonly when user focuses
       el.addEventListener("focus", function removeReadonlyOnFocus() {
         el.removeAttribute("readonly");
-        // ensure caret visible
         el.style.caretColor = "#ffffff";
         el.removeEventListener("focus", removeReadonlyOnFocus);
       });
     });
 
-    // some browsers reapply styles — force a few times quickly
     let tries = 0;
     const interval = setInterval(() => {
       inputs.forEach((el) => {
@@ -81,7 +75,6 @@ const Login = ({ setCurrentPage, setUser }) => {
 
     return () => {
       clearInterval(interval);
-      // cleanup listeners
       inputs.forEach((el) => {
         try {
           el.removeAttribute("readonly");
@@ -93,19 +86,19 @@ const Login = ({ setCurrentPage, setUser }) => {
   const handleSubmit = (e) => {
     e && e.preventDefault();
     setErr("");
-    if (!username.trim() || !password) {
-      setErr("Username dan password wajib diisi.");
+    if (!identifier.trim() || !password) {
+      setErr("Username/Email dan password wajib diisi.");
       return;
     }
     setLoading(true);
     try {
-      const valid = validateLogin(username.trim(), password);
+      const valid = validateLogin(identifier.trim(), password);
       if (valid) {
         saveCurrentUser(valid);
         setUser(valid);
         setCurrentPage("home");
       } else {
-        setErr("Username atau password salah.");
+        setErr("Username/Email atau password salah.");
       }
     } catch {
       setErr("Terjadi kesalahan saat mencoba masuk.");
@@ -190,11 +183,11 @@ const Login = ({ setCurrentPage, setUser }) => {
 
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
                 <div style={{ animationDelay: "160ms" }}>
-                  <label className="block text-sm text-gray-300 mb-1">Username</label>
+                  <label className="block text-sm text-gray-300 mb-1">Username atau Email</label>
                   <input
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Masukkan username"
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    placeholder="Masukkan username atau email"
                     autoComplete="off"
                     className="w-full netflixed-input bg-transparent border border-white/20 rounded-full px-4 py-3 text-white placeholder:text-gray-400 outline-none focus:border-white/40 focus:ring-0 transition-all"
                     style={inputInlineStyle}
