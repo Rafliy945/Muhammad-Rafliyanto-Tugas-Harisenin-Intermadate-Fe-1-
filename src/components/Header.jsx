@@ -206,7 +206,7 @@ export default function Header({
           
           {/* --- UPDATE: LOGO DRAWER MOBILE */}
           <div className="flex items-center gap-2">
-            <img src="/public/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
+            <img src="/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="text-white font-bold text-2xl tracking-wide">
               CHILL
             </span>
