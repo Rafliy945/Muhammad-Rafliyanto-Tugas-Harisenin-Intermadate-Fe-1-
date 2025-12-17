@@ -95,7 +95,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
       username: formData.username,
       email: formData.email,
       phone: formData.phone,
-      // PERBAIKAN 2: Simpan sebagai 'avatar' agar Header bisa membacanya
+     
       avatar: profileImage 
     };
 
@@ -109,7 +109,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
     setEditingField(null);
     setFormData({...formData, password: "••••••••••••••"});
     
-    // Memberikan feedback visual sedikit bahwa data tersimpan (opsional refresh halaman jika perlu)
+    
     alert("Profil berhasil diperbarui!");
   };
 
@@ -199,9 +199,9 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 px-2 sm:px-4">
           
-          {/* Left Column - Profile Info */}
+         
           <div className="space-y-4 md:space-y-6">
-            {/* Avatar Section */}
+           
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6">
               <div className="relative">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center overflow-hidden">
@@ -240,9 +240,9 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
               </div>
             </div>
 
-            {/* Form Fields */}
+          
             <div className="space-y-3 md:space-y-4">
-              {/* Username */}
+             
               <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-3 md:p-4">
                 <div className="flex items-center justify-between mb-1 md:mb-2">
                   <label className="text-xs md:text-sm text-gray-400">Nama Pengguna</label>
@@ -262,7 +262,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                 />
               </div>
 
-              {/* Email */}
+            
               <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-3 md:p-4">
                 <div className="flex items-center justify-between mb-1 md:mb-2">
                   <label className="text-xs md:text-sm text-gray-400">Email</label>
@@ -283,7 +283,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                 />
               </div>
 
-              {/* Password */}
+            
               <div className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-3 md:p-4">
                 <div className="flex items-center justify-between mb-1 md:mb-2">
                   <label className="text-xs md:text-sm text-gray-400">Kata Sandi</label>
@@ -307,7 +307,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                 )}
               </div>
 
-              {/* Action Buttons */}
+              
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3">
                 <button 
                   onClick={handleSave}
@@ -326,7 +326,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
               </div>
             </div>
 
-            {/* Logout Button */}
+            
             <div className="pt-4 md:pt-6">
               <button 
                 onClick={handleLogout}
@@ -337,7 +337,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
             </div>
           </div>
 
-          {/* Right Column - Premium Card - Desktop Only */}
+         
           <div className="hidden lg:block mt-4 md:mt-0">
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 rounded-xl md:rounded-2xl p-4 md:p-6">
               <div className="flex items-start gap-3 md:gap-4">
@@ -361,7 +361,6 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
           </div>
         </div>
 
-        {/* Daftar Saya Section */}
         <div className="mt-8 md:mt-12 px-2 sm:px-4">
           <div className="flex items-center justify-between mb-4 md:mb-6">
             <h2 className="text-xl md:text-2xl font-semibold">Daftar Saya</h2>
@@ -425,13 +424,10 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
         </div>
       </div>
 
-      {/* Footer - Interaktif (Logo TETAP, Fitur SAMA DENGAN APP.JSX) */}
+      
       <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12 w-full mt-auto">
         <div className="max-w-7xl mx-auto">
-          
-          {/* Mobile View */}
           <div className="lg:hidden">
-            {/* Logo & Copyright (LOGO TETAP) */}
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
                 <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
@@ -443,8 +439,6 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                 @2023 Chill All Rights Reserved.
               </p>
             </div>
-
-            {/* Genre Accordion (INTERAKTIF) */}
             <details className="border-b border-gray-800 py-4">
               <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
                 Genre
@@ -459,7 +453,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
               </div>
             </details>
 
-            {/* Bantuan Accordion (INTERAKTIF) */}
+            
             <details className="border-b border-gray-800 py-4">
               <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
                 Bantuan
@@ -475,9 +469,9 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
             </details>
           </div>
 
-          {/* DESKTOP VIEW */}
+         
           <div className="hidden lg:flex justify-between items-start">
-            {/* LEFT: Logo & Copyright (LOGO TETAP) */}
+           
             <div className="mb-8 max-w-xs">
               <div className="flex items-center gap-3 mb-6">
                 <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
@@ -488,34 +482,34 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
               <p className="text-sm text-gray-400">@2023 Chill All Rights Reserved.</p>
             </div>
 
-            {/* Right Side - Genre & Bantuan (INTERAKTIF) */}
+           
             <div className="flex gap-16 xl:gap-24">
-              {/* Genre Section */}
+              
               <div>
                 <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
                 <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
-                  {/* Col 1 */}
+                 
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Aksi" />
                       <FooterGenreButton name="Anak-anak" />
                       <FooterGenreButton name="Anime" />
                       <FooterGenreButton name="Britania" />
                   </div>
-                  {/* Col 2 */}
+               
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Drama" />
                       <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
                       <FooterGenreButton name="Kejahatan" />
                       <FooterGenreButton name="KDrama" />
                   </div>
-                  {/* Col 3 */}
+                 
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Komedi" />
                       <FooterGenreButton name="Petualangan" />
                       <FooterGenreButton name="Perang" />
                       <FooterGenreButton name="Romantis" />
                   </div>
-                    {/* Col 4 */}
+                   
                     <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Sains & Alam" />
                       <FooterGenreButton name="Thriller" />
@@ -523,7 +517,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                 </div>
               </div>
 
-              {/* Bantuan Section */}
+            
               <div>
                 <h4 className="text-white text-lg font-bold mb-6">Bantuan</h4>
                 <div className="flex flex-col gap-4 text-sm">
