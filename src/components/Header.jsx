@@ -70,10 +70,7 @@ export default function Header({
               onClick={() => gotoPage("home")}
               className="flex items-center gap-2 lg:gap-3"
             >
-              <img
-                src="/icons/logo-chill.png"
-              
-              />
+           <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
               <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
                 CHILL
               </span>
