@@ -71,7 +71,7 @@ export default function Header({
               className="flex items-center gap-2 lg:gap-3"
             >
               <img
-                src="/public/icons/logo-chill.png"
+                src="/icons/logo-chill.png"
               
               />
               <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
