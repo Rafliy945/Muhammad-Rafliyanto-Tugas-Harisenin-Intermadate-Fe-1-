@@ -155,7 +155,7 @@ const Login = ({ setCurrentPage, setUser }) => {
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
                            <img
-                src="/public/icons/logo-chill.png"
+                src="/icons/logo-chill.png"
               
               />
               <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
