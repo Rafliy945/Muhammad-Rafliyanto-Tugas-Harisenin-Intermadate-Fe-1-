@@ -146,19 +146,6 @@ const Register = ({ setCurrentPage, setUser }) => {
               <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
                 CHILL
               </span>
-           
-          
-=======
-                  <span className="text-3xl font-bold" style={{
-                    color: NEON_RED,
-                    textShadow: "0 0 6px rgba(229,9,20,0.9), 0 0 20px rgba(229,9,20,0.35)"
-                  }}><img src="/icons/logo-chill.png" alt="Logo Chill"/></span>
-                  <h1 className="text-2xl font-extrabold" style={{
-                    color: NEON_RED,
-                    textShadow: "0 0 8px rgba(229,9,20,0.9), 0 0 28px rgba(229,9,20,0.25)",
-                    letterSpacing: "1px"
-                  }}>CHILL</h1>
-
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Daftar</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>
