@@ -138,6 +138,7 @@ const Register = ({ setCurrentPage, setUser }) => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
+
                      <img
                 src="/public/icons/logo-chill.png"
               
@@ -147,6 +148,17 @@ const Register = ({ setCurrentPage, setUser }) => {
               </span>
            
           
+=======
+                  <span className="text-3xl font-bold" style={{
+                    color: NEON_RED,
+                    textShadow: "0 0 6px rgba(229,9,20,0.9), 0 0 20px rgba(229,9,20,0.35)"
+                  }}><img src="/icons/logo-chill.png" alt="Logo Chill"/></span>
+                  <h1 className="text-2xl font-extrabold" style={{
+                    color: NEON_RED,
+                    textShadow: "0 0 8px rgba(229,9,20,0.9), 0 0 28px rgba(229,9,20,0.25)",
+                    letterSpacing: "1px"
+                  }}>CHILL</h1>
+
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Daftar</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>

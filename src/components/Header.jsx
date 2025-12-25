@@ -66,21 +66,17 @@ export default function Header({
 
         
           <div className="flex items-center gap-2">
-            
-           
+
+
             <button
               onClick={() => gotoPage("home")}
               className="flex items-center gap-2 lg:gap-3"
             >
-              <img
-                src="/public/icons/logo-chill.png"
-              
-              />
+           <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
               <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
                 CHILL
               </span>
             </button>
-          
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6 ml-6">
@@ -209,10 +205,9 @@ export default function Header({
         }`}
       >
         <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
-          
-         
+
           <div className="flex items-center gap-2">
-            <img src="/public/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
+            <img src="/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="text-white font-bold text-2xl tracking-wide">
               CHILL
             </span>

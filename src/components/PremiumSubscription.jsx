@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-// Menambahkan props setCurrentPage dan setSelectedGenre agar footer berfungsi
 const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, closeModal, setCurrentPage, setSelectedGenre }) => {
   const [selectedPlan, setSelectedPlan] = useState("berdua");
 
@@ -42,7 +41,7 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
       {name}
     </button>
   );
-  // -------------------------------
+ 
 
   const benefits = [
     { icon: "download", title: "Download Konten Pilihan" },
@@ -193,16 +192,16 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
         </div>
       </div>
 
-      {/* Footer - Updated: Logo Tetap, Genre & Bantuan Interaktif */}
+      {/* Footer */}
       <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12 mt-16">
         <div className="max-w-7xl mx-auto">
           
           {/* Mobile View - Accordion Style */}
           <div className="lg:hidden">
-            {/* Logo & Copyright (TIDAK DIUBAH) */}
+            {/* Logo & Copyright  */}
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
                 <h3 className="text-white font-bold text-2xl">
                   CHILL
                 </h3>
@@ -245,10 +244,10 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
 
           {/* DESKTOP VIEW */}
           <div className="hidden lg:flex justify-between items-start">
-            {/* LEFT: Logo & Copyright (TIDAK DIUBAH) */}
+            {/* LEFT: Logo & Copyright  */}
             <div className="mb-8 max-w-xs">
               <div className="flex items-center gap-3 mb-6">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
                 <h3 className="text-white font-bold text-3xl tracking-wide">
                   CHILL
                 </h3>
@@ -262,28 +261,28 @@ const PremiumSubscription = ({ user, setUser, setShowPremiumModal, isModal, clos
               <div>
                 <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
                 <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
-                  {/* Col 1 */}
+                
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Aksi" />
                       <FooterGenreButton name="Anak-anak" />
                       <FooterGenreButton name="Anime" />
                       <FooterGenreButton name="Britania" />
                   </div>
-                  {/* Col 2 */}
+                
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Drama" />
                       <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
                       <FooterGenreButton name="Kejahatan" />
                       <FooterGenreButton name="KDrama" />
                   </div>
-                  {/* Col 3 */}
+            
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Komedi" />
                       <FooterGenreButton name="Petualangan" />
                       <FooterGenreButton name="Perang" />
                       <FooterGenreButton name="Romantis" />
                   </div>
-                    {/* Col 4 */}
+                
                     <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Sains & Alam" />
                       <FooterGenreButton name="Thriller" />

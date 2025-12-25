@@ -12,7 +12,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
     password: ""
   });
   
-  // PERBAIKAN 1: Ambil data awal dari 'avatar', bukan 'profileImage'
+
   const [profileImage, setProfileImage] = useState(user?.avatar || user?.profileImage || null);
   
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -46,7 +46,7 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
       {name}
     </button>
   );
-  // -------------------------------
+
 
   if (!user) {
     return (
@@ -95,7 +95,10 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
       username: formData.username,
       email: formData.email,
       phone: formData.phone,
+<<<<<<< HEAD
      
+=======
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
       avatar: profileImage 
     };
 
@@ -108,8 +111,11 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
     setEditing(false);
     setEditingField(null);
     setFormData({...formData, password: "••••••••••••••"});
+<<<<<<< HEAD
     
     
+=======
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
     alert("Profil berhasil diperbarui!");
   };
 
@@ -424,13 +430,17 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
         </div>
       </div>
 
+<<<<<<< HEAD
       
+=======
+      {/* Footer - Interaktif  */}
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
       <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12 w-full mt-auto">
         <div className="max-w-7xl mx-auto">
           <div className="lg:hidden">
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-4">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
                 <h3 className="text-white font-bold text-2xl">
                   CHILL
                 </h3>
@@ -471,10 +481,14 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
 
          
           <div className="hidden lg:flex justify-between items-start">
+<<<<<<< HEAD
            
+=======
+            {/* LEFT: Logo & Copyright */}
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
             <div className="mb-8 max-w-xs">
               <div className="flex items-center gap-3 mb-6">
-                <img src="/public/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
+                <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
                 <h3 className="text-white font-bold text-3xl tracking-wide">
                   CHILL
                 </h3>
@@ -488,14 +502,22 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
               <div>
                 <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
                 <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
+<<<<<<< HEAD
                  
+=======
+                
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Aksi" />
                       <FooterGenreButton name="Anak-anak" />
                       <FooterGenreButton name="Anime" />
                       <FooterGenreButton name="Britania" />
                   </div>
+<<<<<<< HEAD
                
+=======
+                 
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
                   <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Drama" />
                       <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
@@ -509,7 +531,11 @@ const Profile = ({ user, setUser, myList = [], toggleMyList, setShowPremiumModal
                       <FooterGenreButton name="Perang" />
                       <FooterGenreButton name="Romantis" />
                   </div>
+<<<<<<< HEAD
                    
+=======
+                  
+>>>>>>> 1edee391fdd06ab15304c306afebf5c92c69db9f
                     <div className="flex flex-col gap-4">
                       <FooterGenreButton name="Sains & Alam" />
                       <FooterGenreButton name="Thriller" />
