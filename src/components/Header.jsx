@@ -1,4 +1,4 @@
-// UPDATED HEADER.JSX — Logo and Text matched with Footer style
+
 import React, { useEffect, useState } from "react";
 import { Menu, X, Search } from "lucide-react";
 
@@ -24,7 +24,7 @@ export default function Header({
     };
   }, [mobileOpen]);
 
-  // add scroll listener to add subtle backdrop blur / opacity when user scrolls
+
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY || window.pageYOffset;
@@ -64,10 +64,10 @@ export default function Header({
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
 
-          {/* BAGIAN KIRI: LOGO & NAV */}
+        
           <div className="flex items-center gap-2">
             
-            {/* --- UPDATE: LOGO & TEKS CHILL (Sesuai Footer) --- */}
+           
             <button
               onClick={() => gotoPage("home")}
               className="flex items-center gap-2 lg:gap-3"
@@ -80,7 +80,7 @@ export default function Header({
                 CHILL
               </span>
             </button>
-            {/* ------------------------------------------------ */}
+          
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-6 ml-6">
@@ -122,7 +122,7 @@ export default function Header({
             {/* Desktop User Dropdown */}
             <div className="hidden md:block relative">
               {user ? (
-                <div className="group relative py-2"> {/* Tambah padding wrapper agar hover tidak putus */}
+                <div className="group relative py-2"> 
                   <button className="w-9 h-9 bg-gray-700 rounded-full text-white flex items-center justify-center overflow-hidden border border-transparent group-hover:border-white transition-all">
                     {user.avatar ? (
                       <img src={user.avatar} alt="User" className="w-full h-full object-cover" />
@@ -210,14 +210,14 @@ export default function Header({
       >
         <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
           
-          {/* --- UPDATE: LOGO DRAWER MOBILE (Sesuai Footer) --- */}
+         
           <div className="flex items-center gap-2">
             <img src="/public/icons/logo-chill.png" alt="Logo" className="w-8 h-8 object-contain" />
             <span className="text-white font-bold text-2xl tracking-wide">
               CHILL
             </span>
           </div>
-          {/* ------------------------------------------------ */}
+        
 
           <button onClick={() => setMobileOpen(false)} className="p-1 text-gray-400 hover:text-white transition-colors">
             <X size={24} />

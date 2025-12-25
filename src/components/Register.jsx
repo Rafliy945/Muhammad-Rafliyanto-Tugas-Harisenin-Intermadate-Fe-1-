@@ -94,12 +94,11 @@ const Register = ({ setCurrentPage, setUser }) => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/poster/bangku.jpg')",
+          backgroundImage: "url('/public/poster/bangku2.jpg')",
         }}
       />
 
-      {/* overlay dark */}
-      <div className="absolute inset-0 z-10 bg-black/55" />
+     
 
       {/* vignette */}
       <div
@@ -139,15 +138,15 @@ const Register = ({ setCurrentPage, setUser }) => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
-                  <span className="text-3xl font-bold" style={{
-                    color: NEON_RED,
-                    textShadow: "0 0 6px rgba(229,9,20,0.9), 0 0 20px rgba(229,9,20,0.35)"
-                  }}>🎬</span>
-                  <h1 className="text-2xl font-extrabold" style={{
-                    color: NEON_RED,
-                    textShadow: "0 0 8px rgba(229,9,20,0.9), 0 0 28px rgba(229,9,20,0.25)",
-                    letterSpacing: "1px"
-                  }}>CHILL</h1>
+                     <img
+                src="/public/icons/logo-chill.png"
+              
+              />
+              <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
+                CHILL
+              </span>
+           
+          
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Daftar</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>
