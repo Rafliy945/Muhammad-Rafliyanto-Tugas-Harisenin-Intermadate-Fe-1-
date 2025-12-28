@@ -101,7 +101,7 @@ const Register = () => {
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/public/poster/bangku2.jpg')",
+          backgroundImage: "url('/poster/bangku2.jpg')",
         }}
       />
 
@@ -143,10 +143,19 @@ const Register = () => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
+
                   <img src="/public/icons/logo-chill.png" alt="Logo" />
                   <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
                     CHILL
                   </span>
+
+                <img
+                src="/icons/logo-chill.png"
+              
+              />
+              <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
+                CHILL
+              </span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Daftar</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>

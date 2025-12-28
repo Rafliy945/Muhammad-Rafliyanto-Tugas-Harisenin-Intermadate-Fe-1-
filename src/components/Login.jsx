@@ -172,6 +172,14 @@ const Login = () => {
                   <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
                     CHILL
                   </span>
+
+                <img
+                src="/icons/logo-chill.png"
+              
+              />
+              <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
+                CHILL
+              </span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Masuk</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang kembali!</p>
