@@ -1,9 +1,13 @@
 // /src/components/MovieCard.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Plus, Check, ChevronDown, Volume2, VolumeX } from 'lucide-react';
+import useStore from '../store';
 
 // HoverModal Component with Video Autoplay + iframe error fallback
-const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, onMouseLeave, onExpand }) => {
+const HoverModal = ({ movie, position, onMouseEnter, onMouseLeave, onExpand }) => {
+  // Zustand store
+  const { toggleFavorite, isFavorite } = useStore();
+  
   const [isMuted, setIsMuted] = useState(true);
   const [showVideo, setShowVideo] = useState(false);
   const [iframeError, setIframeError] = useState(false);
@@ -40,21 +44,17 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
 
   // Auto show video after delay
   useEffect(() => {
-    setIframeError(false); // reset on movie change
+    setIframeError(false);
     const timer = setTimeout(() => {
       setShowVideo(true);
-      // Try to play HTML5 video if exists
       if (videoRef.current && !youtubeId) {
-        videoRef.current.volume = 0; // Start muted
-        videoRef.current.play().catch(() => {
-          // autoplay prevented
-        });
+        videoRef.current.volume = 0;
+        videoRef.current.play().catch(() => {});
       }
     }, 800);
     
     return () => {
       clearTimeout(timer);
-      // Cleanup video when unmounting
       if (videoRef.current) {
         videoRef.current.pause();
         videoRef.current.currentTime = 0;
@@ -62,13 +62,12 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
     };
   }, [movie, youtubeId]);
 
-  // Toggle mute for both YouTube (via postMessage) and HTML5 video
+  // Toggle mute for both YouTube and HTML5 video
   const handleToggleMute = (e) => {
     e.stopPropagation();
     setIsMuted(prev => {
       const newMuted = !prev;
       
-      // For HTML5 video
       if (videoRef.current) {
         try {
           videoRef.current.muted = newMuted;
@@ -79,7 +78,6 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
         } catch {}
       }
       
-      // For YouTube iframe (using postMessage API)
       if (iframeRef.current && youtubeId && iframeRef.current.contentWindow) {
         const iframe = iframeRef.current;
         if (newMuted) {
@@ -118,7 +116,6 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
             onError={() => setIframeError(true)}
           />
         ) : showVideo && movie.trailer && !youtubeId ? (
-          /* HTML5 Video */
           <video
             ref={videoRef}
             src={movie.trailer}
@@ -129,7 +126,6 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
             playsInline
           />
         ) : (
-          /* Fallback Image */
           <img
             src={movie.image}
             alt={movie.title}
@@ -137,7 +133,6 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
           />
         )}
 
-        {/* overlay shown when iframe embed fails */}
         {iframeError && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/80 p-4 z-30">
             <div className="text-center">
@@ -189,12 +184,12 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
           <button
             onClick={(e) => {
               e.stopPropagation();
-              toggleMyList(movie);
+              toggleFavorite(movie);
             }}
             className="flex-shrink-0 bg-[#2a2a2a] hover:bg-[#3a3a3a] border border-gray-600 text-white rounded-full p-2.5 transition-all"
             title="Tambah ke daftar"
           >
-            {isInMyList(movie.id) ? <Check size={18} /> : <Plus size={18} />}
+            {isFavorite(movie.id) ? <Check size={18} /> : <Plus size={18} />}
           </button>
 
           <button 
@@ -218,27 +213,25 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
         </div>
 
         <div className="flex flex-wrap gap-1.5 text-sm text-gray-300">
-        {movie.genres?.map((genre, i) => (
-  <React.Fragment key={i}>
-    <span>{genre}</span>
-    {i < movie.genres.length - 1 && <span className="text-gray-600">•</span>}
-  </React.Fragment>
-))}
+          {movie.genres?.map((genre, i) => (
+            <React.Fragment key={i}>
+              <span>{genre}</span>
+              {i < movie.genres.length - 1 && <span className="text-gray-600">•</span>}
+            </React.Fragment>
+          ))}
 
-{/* Tambahan subgenre */}
-{movie.subgenres && (
-  <div className="flex gap-1 flex-wrap mt-2">
-    {movie.subgenres.map((sub, i) => (
-      <span 
-        key={i}
-        className="px-2 py-1 bg-gray-800 rounded-full text-xs"
-      >
-        {sub}
-      </span>
-    ))}
-  </div>
-)}
-
+          {movie.subgenres && (
+            <div className="flex gap-1 flex-wrap mt-2">
+              {movie.subgenres.map((sub, i) => (
+                <span 
+                  key={i}
+                  className="px-2 py-1 bg-gray-800 rounded-full text-xs"
+                >
+                  {sub}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
@@ -252,8 +245,11 @@ const HoverModal = ({ movie, position, toggleMyList, isInMyList, onMouseEnter, o
   );
 };
 
-// MovieCard Component (poster + hover)
-const MovieCard = ({ movie, onClick, toggleMyList, isInMyList, onHoverStart, onHoverEnd, cardRef, onExpand, small = false }) => {
+// MovieCard Component
+const MovieCard = ({ movie, onClick, onHoverStart, onHoverEnd, cardRef, onExpand, small = false }) => {
+  // Zustand store
+  const { toggleFavorite, isFavorite } = useStore();
+  
   return (
     <div
       ref={cardRef}
@@ -264,7 +260,6 @@ const MovieCard = ({ movie, onClick, toggleMyList, isInMyList, onHoverStart, onH
       style={{ width: '100%' }}
     >
       {small ? (
-        // POSTER TRENDING → persegi panjang kecil (mini portrait)
         <div className="w-[150px] h-[220px] rounded-lg overflow-hidden">
           <img
             src={movie.image}
@@ -274,7 +269,6 @@ const MovieCard = ({ movie, onClick, toggleMyList, isInMyList, onHoverStart, onH
           />
         </div>
       ) : (
-        // POSTER BIASA
         <img
           src={movie.image}
           alt={movie.title}
@@ -285,7 +279,6 @@ const MovieCard = ({ movie, onClick, toggleMyList, isInMyList, onHoverStart, onH
       {movie.tag && <div className="absolute top-2 left-2 bg-blue-600 text-white text-xs px-2 py-1 rounded">{movie.tag}</div>}
       {movie.top && <div className="absolute top-2 right-2 bg-red-600 text-white text-xs px-2 py-1 rounded">{movie.top}</div>}
 
-      {/* Hover content */}
       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg flex flex-col justify-end p-4">
         <h3 className="text-white font-semibold text-sm mb-2 line-clamp-2">{movie.title}</h3>
 
@@ -298,11 +291,11 @@ const MovieCard = ({ movie, onClick, toggleMyList, isInMyList, onHoverStart, onH
             className="bg-gray-800 text-white rounded-full p-2 hover:bg-gray-700"
             onClick={(e) => {
               e.stopPropagation();
-              toggleMyList(movie);
+              toggleFavorite(movie);
             }}
             title="Tambah ke daftar"
           >
-            {isInMyList(movie.id) ? <Check size={16} /> : <Plus size={16} />}
+            {isFavorite(movie.id) ? <Check size={16} /> : <Plus size={16} />}
           </button>
 
           <button 

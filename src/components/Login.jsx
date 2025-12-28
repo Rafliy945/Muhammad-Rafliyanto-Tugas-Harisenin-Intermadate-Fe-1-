@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { validateLogin, saveCurrentUser } from "../auth";
+import useStore from "../store";
 
 const NEON_RED = "#E50914";
 
@@ -12,7 +13,10 @@ const inputInlineStyle = {
   color: "#ffffff",
 };
 
-const Login = ({ setCurrentPage, setUser }) => {
+const Login = () => {
+  // Zustand store
+  const { setUser, setCurrentPage } = useStore();
+  
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
@@ -84,27 +88,37 @@ const Login = ({ setCurrentPage, setUser }) => {
   }, []);
 
   const handleSubmit = (e) => {
-    e && e.preventDefault();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     setErr("");
+    
     if (!identifier.trim() || !password) {
       setErr("Username/Email dan password wajib diisi.");
       return;
     }
+    
     setLoading(true);
-    try {
-      const valid = validateLogin(identifier.trim(), password);
-      if (valid) {
-        saveCurrentUser(valid);
-        setUser(valid);
-        setCurrentPage("home");
-      } else {
-        setErr("Username/Email atau password salah.");
+    
+    setTimeout(() => {
+      try {
+        const valid = validateLogin(identifier.trim(), password);
+        if (valid) {
+          saveCurrentUser(valid);
+          setUser(valid);
+          setCurrentPage("home");
+        } else {
+          setErr("Username/Email atau password salah.");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        setErr("Terjadi kesalahan saat mencoba masuk.");
+      } finally {
+        setLoading(false);
       }
-    } catch {
-      setErr("Terjadi kesalahan saat mencoba masuk.");
-    } finally {
-      setLoading(false);
-    }
+    }, 100);
   };
 
   return (
@@ -154,13 +168,10 @@ const Login = ({ setCurrentPage, setUser }) => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
-                           <img
-                src="/public/icons/logo-chill.png"
-              
-              />
-              <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
-                CHILL
-              </span>
+                  <img src="/public/icons/logo-chill.png" alt="Logo" />
+                  <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
+                    CHILL
+                  </span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Masuk</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang kembali!</p>

@@ -1,28 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Play, Volume2, VolumeX, Search } from 'lucide-react';
+import { Play, Search } from 'lucide-react';
 import YouTube from 'react-youtube';
 import Header from './components/Header';
 import Login from './components/Login';
 import Register from './components/Register';
 import Profile from './components/Profile';
 import PremiumSubscription from './components/PremiumSubscription';
-import { getUser } from './auth';
 import { moviesData, seriesData } from './data/content';
 import MovieRow from './components/MovieRow';
 import MovieDetailModal from './components/MovieDetailModal';
+import useStore from './store';
 
 const App = () => {
-  const [user, setUser] = useState(getUser());
-  const [currentPage, setCurrentPage] = useState(user ? 'home' : 'login');
-  
+  // Zustand Store
+  const { 
+    user, 
+    currentPage, 
+    setUser, 
+    setCurrentPage
+  } = useStore();
+
   const [heroVisible, setHeroVisible] = useState(false);
-  useEffect(() => { const t = setTimeout(()=>setHeroVisible(true), 120); return ()=>clearTimeout(t); }, []);
+  useEffect(() => { 
+    const t = setTimeout(() => setHeroVisible(true), 120); 
+    return () => clearTimeout(t); 
+  }, []);
+  
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [myList, setMyList] = useState([]);
-
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
-
   const [selectedGenre, setSelectedGenre] = useState('All');
 
   const HERO_TRAILER_ID = 'kZ5i8NyA4P4';
@@ -34,7 +41,6 @@ const App = () => {
   const [isBuffering, setIsBuffering] = useState(false);
   const VISIBILITY_THRESHOLD = 0.5;
   
-  // Updated allGenres to match Footer
   const allGenres = [
     'All', 'Aksi', 'Drama', 'Komedi', 'Thriller', 'Fantasi Ilmiah', 
     'Horror', 'Romantis', 'Petualangan', 'Anime', 'Kejahatan', 'Anak-anak',
@@ -45,7 +51,13 @@ const App = () => {
     height: '100%',
     width: '100%',
     playerVars: {
-      autoplay: 1, controls: 0, rel: 0, modestbranding: 1, playsinline: 1, loop: 1, playlist: HERO_TRAILER_ID,
+      autoplay: 1, 
+      controls: 0, 
+      rel: 0, 
+      modestbranding: 1, 
+      playsinline: 1, 
+      loop: 1, 
+      playlist: HERO_TRAILER_ID,
     },
   };
 
@@ -135,11 +147,14 @@ const App = () => {
       return [...prev, movie];
     });
   };
+  
   const isInMyList = (movieId) => myList.some(m => m.id === movieId);
 
   const filterContent = (content) => {
     let filtered = content;
-    if (selectedGenre !== 'All') filtered = filtered.filter(item => item.genres.includes(selectedGenre));
+    if (selectedGenre !== 'All') {
+      filtered = filtered.filter(item => item.genres.includes(selectedGenre));
+    }
     if (searchQuery) {
       filtered = filtered.filter(item =>
         item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -162,14 +177,11 @@ const App = () => {
     if (state === YT.PlayerState.PAUSED) setIsHeroPlaying(false);
   };
 
-  // --- NEW HANDLERS FOR FOOTER ---
   const handleGenreClick = (genre) => {
     setSelectedGenre(genre);
-    // Jika user ada di home/profile/mylist, pindahkan ke 'film' agar hasil filter terlihat
     if (currentPage !== 'series' && currentPage !== 'film') {
       setCurrentPage('film');
     }
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -195,11 +207,23 @@ const App = () => {
     </button>
   );
 
+  // Debug logging
+  useEffect(() => {
+    console.log('Current Page:', currentPage);
+    console.log('User:', user);
+  }, [currentPage, user]);
 
-  // Logic Rendering Login/Register/Profile/Premium
-  if (currentPage === 'login') return <Login setCurrentPage={setCurrentPage} setUser={setUser} />;
-  if (currentPage === 'register') return <Register setCurrentPage={setCurrentPage} setUser={setUser} />;
+  // Render Login Page
+  if (currentPage === 'login') {
+    return <Login />;
+  }
   
+  // Render Register Page
+  if (currentPage === 'register') {
+    return <Register />;
+  }
+  
+  // Render Premium Page
   if (currentPage === 'premium') {
     return (
       <>
@@ -225,6 +249,7 @@ const App = () => {
     );
   }
   
+  // Render Profile Page
   if (currentPage === 'profile') {
     return (
       <>
@@ -252,6 +277,7 @@ const App = () => {
     );
   }
 
+  // Main App Content
   return (
     <>
       <div className="bg-black min-h-screen">
@@ -267,7 +293,7 @@ const App = () => {
           setUser={setUser}
         />
 
-        {/* mobile search input + overlay */}
+        {/* Mobile Search Overlay */}
         {showSearch && (
           <div className="fixed top-16 left-0 right-0 z-40">
             <div
@@ -291,10 +317,16 @@ const App = () => {
           </div>
         )}
 
-
-        {/* HERO */}
-        <div ref={heroRef} className={`relative w-full overflow-hidden transition-all duration-700 ease-out ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
-          <div className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-700 ${isHeroPlaying ? 'opacity-100' : 'opacity-70'}`}>
+        {/* Hero Section */}
+        <div 
+          ref={heroRef} 
+          className={`relative w-full overflow-hidden transition-all duration-700 ease-out ${
+            heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+          }`}
+        >
+          <div className={`absolute inset-0 z-10 pointer-events-none transition-opacity duration-700 ${
+            isHeroPlaying ? 'opacity-100' : 'opacity-70'
+          }`}>
             <YouTube
               videoId={HERO_TRAILER_ID}
               opts={ytOpts}
@@ -314,9 +346,15 @@ const App = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/55 to-black/95 pointer-events-none" />
           </div>
 
-          <img src="poster/Rectangle 9.png" alt="Hero Poster" className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${ytReady ? "opacity-0 pointer-events-none" : "opacity-100"}`} />
+          <img 
+            src="poster/Rectangle 9.png" 
+            alt="Hero Poster" 
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              ytReady ? "opacity-0 pointer-events-none" : "opacity-100"
+            }`} 
+          />
+          
           <div className="relative z-20 px-6 pt-20 pb-8 lg:pt-50 lg:pb-28 max-w-7xl mx-auto">
-
             <div className="flex flex-col lg:flex-row lg:items-end gap-6 lg:gap-12">
               <div className="flex-1 lg:max-w-2xl">
                 <h2 className="text-white font-extrabold leading-tight text-2xl sm:text-3xl md:text-4xl lg:text-7xl xl:text-8xl tracking-tight">
@@ -330,6 +368,7 @@ const App = () => {
                   <span className="ml-2 text-sm text-yellow-300">★ 4.4/5</span>
                   <span className="text-sm text-gray-300 ml-2">│ 2023</span>
                 </div>
+                
                 <p className="text-gray-200 mt-5 text-xs sm:text-sm max-w-xl leading-relaxed line-clamp-2 sm:line-clamp-3">
                   Sebuah benda tak dikenal mengambil alih dunia. Departemen Pertahanan merekrut siswa jadi pejuang.
                 </p>
@@ -385,7 +424,9 @@ const App = () => {
           )}
         </div>
 
+        {/* Content Section */}
         <div className="relative z-10 mt-0 pb-20">
+          {/* Genre Filter */}
           {(currentPage === 'film' || currentPage === 'series') && (
             <div className="px-12 mb-8">
               <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-4">
@@ -406,6 +447,7 @@ const App = () => {
             </div>
           )}
 
+          {/* Search Results */}
           {searchQuery && (
             (() => {
               const results = filterContent([...moviesData, ...seriesData]);
@@ -440,6 +482,7 @@ const App = () => {
             })()
           )}
 
+          {/* Home Page Content */}
           {currentPage === 'home' && (
             <>
               <MovieRow
@@ -451,51 +494,137 @@ const App = () => {
                 showNumbers={true}
                 isTrending={true}
               />
-              <MovieRow title="Film Populer" movies={moviesData.slice(0, 10)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-              <MovieRow title="Series Populer" movies={seriesData.slice(0, 10)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-              <MovieRow title="Rilis Terbaru" movies={[...moviesData, ...seriesData].filter(item => item.isNew).slice(0, 10)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-              <MovieRow title="Action & Thriller" movies={[...moviesData, ...seriesData].filter(item => item.genres.includes('Aksi') || item.genres.includes('Thriller')).slice(0, 10)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-              <MovieRow title="Drama Terbaik" movies={[...moviesData, ...seriesData].filter(item => item.genres.includes('Drama')).slice(0, 10)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
+              <MovieRow 
+                title="Film Populer" 
+                movies={moviesData.slice(0, 10)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
+              <MovieRow 
+                title="Series Populer" 
+                movies={seriesData.slice(0, 10)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
+              <MovieRow 
+                title="Rilis Terbaru" 
+                movies={[...moviesData, ...seriesData].filter(item => item.isNew).slice(0, 10)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
+              <MovieRow 
+                title="Action & Thriller" 
+                movies={[...moviesData, ...seriesData].filter(item => 
+                  item.genres.includes('Aksi') || item.genres.includes('Thriller')
+                ).slice(0, 10)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
+              <MovieRow 
+                title="Drama Terbaik" 
+                movies={[...moviesData, ...seriesData].filter(item => 
+                  item.genres.includes('Drama')
+                ).slice(0, 10)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
             </>
           )}
 
+          {/* Series Page Content */}
           {currentPage === 'series' && (
             <>
-              <MovieRow title={selectedGenre === 'All' ? "Semua Series" : `Series ${selectedGenre}`} movies={filterContent(seriesData)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
+              <MovieRow 
+                title={selectedGenre === 'All' ? "Semua Series" : `Series ${selectedGenre}`} 
+                movies={filterContent(seriesData)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
               {selectedGenre === 'All' && (
                 <>
-                  <MovieRow title="Top Rating Series" movies={seriesData.filter(s => parseFloat(s.rating) >= 4.7)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-                  <MovieRow title="Series Baru" movies={seriesData.filter(s => s.isNew)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
+                  <MovieRow 
+                    title="Top Rating Series" 
+                    movies={seriesData.filter(s => parseFloat(s.rating) >= 4.7)} 
+                    setSelectedMovie={setSelectedMovie} 
+                    toggleMyList={toggleMyList} 
+                    isInMyList={isInMyList} 
+                  />
+                  <MovieRow 
+                    title="Series Baru" 
+                    movies={seriesData.filter(s => s.isNew)} 
+                    setSelectedMovie={setSelectedMovie} 
+                    toggleMyList={toggleMyList} 
+                    isInMyList={isInMyList} 
+                  />
                 </>
               )}
             </>
           )}
 
+          {/* Film Page Content */}
           {currentPage === 'film' && (
             <>
-              <MovieRow title={selectedGenre === 'All' ? "Semua Film" : `Film ${selectedGenre}`} movies={filterContent(moviesData)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
+              <MovieRow 
+                title={selectedGenre === 'All' ? "Semua Film" : `Film ${selectedGenre}`} 
+                movies={filterContent(moviesData)} 
+                setSelectedMovie={setSelectedMovie} 
+                toggleMyList={toggleMyList} 
+                isInMyList={isInMyList} 
+              />
               {selectedGenre === 'All' && (
                 <>
-                  <MovieRow title="Top Rating Film" movies={moviesData.filter(m => parseFloat(m.rating) >= 4.7)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
-                  <MovieRow title="Film Baru" movies={moviesData.filter(m => m.isNew)} setSelectedMovie={setSelectedMovie} toggleMyList={toggleMyList} isInMyList={isInMyList} />
+                  <MovieRow 
+                    title="Top Rating Film" 
+                    movies={moviesData.filter(m => parseFloat(m.rating) >= 4.7)} 
+                    setSelectedMovie={setSelectedMovie} 
+                    toggleMyList={toggleMyList} 
+                    isInMyList={isInMyList} 
+                  />
+                  <MovieRow 
+                    title="Film Baru" 
+                    movies={moviesData.filter(m => m.isNew)} 
+                    setSelectedMovie={setSelectedMovie} 
+                    toggleMyList={toggleMyList} 
+                    isInMyList={isInMyList} 
+                  />
                 </>
               )}
             </>
           )}
 
+          {/* My List Page Content */}
           {currentPage === 'mylist' && (
             <div className="px-12">
               <h2 className="text-white text-3xl font-bold mb-8">Daftar Saya</h2>
               {myList.length === 0 ? (
                 <div className="text-center py-20">
                   <p className="text-gray-400 text-lg mb-4">Belum ada konten di daftar Anda</p>
-                  <button onClick={() => setCurrentPage('home')} className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700">Jelajahi Konten</button>
+                  <button 
+                    onClick={() => setCurrentPage('home')} 
+                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700"
+                  >
+                    Jelajahi Konten
+                  </button>
                 </div>
               ) : (
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {myList.map(movie => (
-                    <div key={movie.id} className="relative flex-shrink-0 w-full cursor-pointer" onClick={() => setSelectedMovie(movie)}>
-                      <img src={movie.image} alt={movie.title} className="w-full h-48 object-cover rounded-lg hover:opacity-80 transition-opacity" />
+                    <div 
+                      key={movie.id} 
+                      className="relative flex-shrink-0 w-full cursor-pointer" 
+                      onClick={() => setSelectedMovie(movie)}
+                    >
+                      <img 
+                        src={movie.image} 
+                        alt={movie.title} 
+                        className="w-full h-48 object-cover rounded-lg hover:opacity-80 transition-opacity" 
+                      />
                     </div>
                   ))}
                 </div>
@@ -504,26 +633,20 @@ const App = () => {
           )}
         </div>
 
-        {/* Footer - Interaktif */}
+        {/* Footer */}
         <footer className="bg-[#0a0a0a] border-t border-gray-800 pt-16 pb-12 px-6 md:px-12">
           <div className="max-w-7xl mx-auto">
             
-            {/* Mobile View - Accordion Style */}
+            {/* Mobile View */}
             <div className="lg:hidden">
-              {/* Logo & Copyright */}
               <div className="mb-8">
                 <div className="flex items-center gap-2 mb-4">
                   <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-8 h-8" />
-                  <h3 className="text-white font-bold text-2xl">
-                    CHILL
-                  </h3>
+                  <h3 className="text-white font-bold text-2xl">CHILL</h3>
                 </div>
-                <p className="text-sm text-gray-400">
-                  @2023 Chill All Rights Reserved.
-                </p>
+                <p className="text-sm text-gray-400">@2023 Chill All Rights Reserved.</p>
               </div>
 
-              {/* Genre Accordion */}
               <details className="border-b border-gray-800 py-4">
                 <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
                   Genre
@@ -532,13 +655,13 @@ const App = () => {
                   </svg>
                 </summary>
                 <div className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3">
-                  {['Aksi', 'Drama', 'Komedi', 'Sains & Alam', 'Anak-anak', 'Fantasi Ilmiah & Fantasi', 'Petualangan', 'Thriller', 'Anime', 'Kejahatan', 'Perang', 'Britania', 'KDrama', 'Romantis'].map(genre => (
+                  {['Aksi', 'Drama', 'Komedi', 'Sains & Alam', 'Anak-anak', 'Fantasi Ilmiah & Fantasi', 
+                    'Petualangan', 'Thriller', 'Anime', 'Kejahatan', 'Perang', 'Britania', 'KDrama', 'Romantis'].map(genre => (
                      <FooterGenreButton key={genre} name={genre} />
                   ))}
                 </div>
               </details>
 
-              {/* Bantuan Accordion */}
               <details className="border-b border-gray-800 py-4">
                 <summary className="flex items-center justify-between cursor-pointer text-white text-lg font-semibold">
                   Bantuan
@@ -554,55 +677,45 @@ const App = () => {
               </details>
             </div>
 
-            {/* DESKTOP VIEW - Interaktif */}
+            {/* Desktop View */}
             <div className="hidden lg:flex justify-between items-start">
-              {/* LEFT: Logo & Copyright */}
               <div className="mb-8 max-w-xs">
                 <div className="flex items-center gap-3 mb-6">
                   <img src="/icons/logo-chill.png" alt="Logo Chill" className="w-10 h-auto" />
-                  <h3 className="text-white font-bold text-3xl tracking-wide">
-                    CHILL
-                  </h3>
+                  <h3 className="text-white font-bold text-3xl tracking-wide">CHILL</h3>
                 </div>
                 <p className="text-sm text-gray-400">@2023 Chill All Rights Reserved.</p>
               </div>
 
-              {/* Right Side - Genre & Bantuan */}
               <div className="flex gap-16 xl:gap-24">
-                {/* Genre Section - Grid Columns */}
                 <div>
                   <h4 className="text-white text-lg font-bold mb-6">Genre</h4>
                   <div className="grid grid-cols-4 gap-x-8 gap-y-4 text-sm">
-                    
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Aksi" />
                         <FooterGenreButton name="Anak-anak" />
                         <FooterGenreButton name="Anime" />
                         <FooterGenreButton name="Britania" />
                     </div>
-             
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Drama" />
                         <FooterGenreButton name="Fantasi Ilmiah & Fantasi" />
                         <FooterGenreButton name="Kejahatan" />
                         <FooterGenreButton name="KDrama" />
                     </div>
-               
                     <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Komedi" />
                         <FooterGenreButton name="Petualangan" />
                         <FooterGenreButton name="Perang" />
                         <FooterGenreButton name="Romantis" />
                     </div>
-                   
-                     <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4">
                         <FooterGenreButton name="Sains & Alam" />
                         <FooterGenreButton name="Thriller" />
                     </div>
                   </div>
                 </div>
 
-                {/* Bantuan Section */}
                 <div>
                   <h4 className="text-white text-lg font-bold mb-6">Bantuan</h4>
                   <div className="flex flex-col gap-4 text-sm">
@@ -618,7 +731,7 @@ const App = () => {
           </div>
         </footer>
 
-        {/* Modals */}
+        {/* Movie Detail Modal */}
         {selectedMovie && (
           <MovieDetailModal
             selectedMovie={selectedMovie}

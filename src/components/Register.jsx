@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { addUser, saveCurrentUser } from "../auth";
+import useStore from "../store";
 
 const NEON_RED = "#E50914";
 
-const Register = ({ setCurrentPage, setUser }) => {
+const Register = () => {
+  // Zustand store
+  const { setUser, setCurrentPage } = useStore();
+  
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
   const [username, setUsername] = useState("");
@@ -28,7 +32,11 @@ const Register = ({ setCurrentPage, setUser }) => {
   };
 
   const handleRegister = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     setErr("");
     
     if (!username.trim() || !email.trim() || !password || !confirmPassword) {
@@ -52,40 +60,39 @@ const Register = ({ setCurrentPage, setUser }) => {
     }
     
     setLoading(true);
-    try {
-      const newUser = addUser({ 
-        username: username.trim(), 
-        email: email.trim(),
-        password, 
-        phone: phone.trim() 
-      });
-      
-      saveCurrentUser({
-        username: newUser.username,
-        email: newUser.email,
-        phone: newUser.phone,
-        premium: false,
-      });
-      
-      setUser({
-        username: newUser.username,
-        email: newUser.email,
-        phone: newUser.phone,
-        premium: false,
-      });
-      
-      setCurrentPage("home");
-    } catch (error) {
-      if (error.message === "USERNAME_EXISTS") {
-        setErr("Username sudah terdaftar.");
-      } else if (error.message === "EMAIL_EXISTS") {
-        setErr("Email sudah terdaftar.");
-      } else {
-        setErr("Terjadi kesalahan.");
+    
+    setTimeout(() => {
+      try {
+        const newUser = addUser({ 
+          username: username.trim(), 
+          email: email.trim(),
+          password, 
+          phone: phone.trim() 
+        });
+        
+        const userData = {
+          username: newUser.username,
+          email: newUser.email,
+          phone: newUser.phone,
+          premium: false,
+        };
+        
+        saveCurrentUser(userData);
+        setUser(userData);
+        setCurrentPage("home");
+      } catch (error) {
+        console.error("Register error:", error);
+        if (error.message === "USERNAME_EXISTS") {
+          setErr("Username sudah terdaftar.");
+        } else if (error.message === "EMAIL_EXISTS") {
+          setErr("Email sudah terdaftar.");
+        } else {
+          setErr("Terjadi kesalahan.");
+        }
+      } finally {
+        setLoading(false);
       }
-    } finally {
-      setLoading(false);
-    }
+    }, 100);
   };
 
   return (
@@ -97,8 +104,6 @@ const Register = ({ setCurrentPage, setUser }) => {
           backgroundImage: "url('/public/poster/bangku2.jpg')",
         }}
       />
-
-     
 
       {/* vignette */}
       <div
@@ -138,14 +143,10 @@ const Register = ({ setCurrentPage, setUser }) => {
             <div className="relative p-6 sm:p-8">
               <div className="text-center mb-4" style={{ transitionDelay: "120ms" }}>
                 <div className="flex items-center justify-center gap-3">
-
-                     <img
-                src="/public/icons/logo-chill.png"
-              
-              />
-              <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
-                CHILL
-              </span>
+                  <img src="/public/icons/logo-chill.png" alt="Logo" />
+                  <span className="text-white font-bold text-2xl lg:text-3xl tracking-wide">
+                    CHILL
+                  </span>
                 </div>
                 <h2 className="text-lg font-semibold text-gray-200 mt-3">Daftar</h2>
                 <p className="text-sm text-gray-400 mt-1">Selamat datang!</p>

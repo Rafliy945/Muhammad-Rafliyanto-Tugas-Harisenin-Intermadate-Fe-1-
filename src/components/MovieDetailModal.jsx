@@ -1,24 +1,19 @@
-// src/components/MovieDetailModal.jsx
+
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import YouTube from "react-youtube";
-import { X, Play, Plus, Check, Volume2, VolumeX, ChevronLeft, ChevronRight, List, Home, User, Search } from "lucide-react";
+import { X, Play, Plus, Check, Volume2, VolumeX, ChevronLeft, ChevronRight, List } from "lucide-react";
+import useStore from '../store';
 
-const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList, movies = [], openMovie }) => {
+const MovieDetailModal = ({ selectedMovie, closeModal, movies = [], openMovie }) => {
+  // Zustand store
+  const { toggleFavorite, isFavorite, favorites } = useStore();
+  
   const [isMuted, setIsMuted] = useState(true);
   const [ytPlayer, setYtPlayer] = useState(null);
   const [youtubeError, setYoutubeError] = useState(false);
   const [showMyListSection, setShowMyListSection] = useState(false);
-  const [userMyList, setUserMyList] = useState([]);
   const videoRef = useRef(null);
   const recRef = useRef(null);
-
-  useEffect(() => {
-    // Load user's myList from localStorage
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (currentUser && currentUser.myList) {
-      setUserMyList(currentUser.myList);
-    }
-  }, []);
 
   if (!selectedMovie) return null;
 
@@ -39,7 +34,9 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
         return parts[parts.length - 1] || null;
       }
       return null;
-    } catch { return null; }
+    } catch { 
+      return null; 
+    }
   };
 
   const ytId = getYouTubeId(selectedMovie.trailer);
@@ -53,26 +50,50 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
         return g.some(x => base.includes(x));
       });
       return (matched.length ? matched : cand).slice(0, 8);
-    } catch { return movies.filter(m => m.id !== selectedMovie.id).slice(0,8); }
+    } catch { 
+      return movies.filter(m => m.id !== selectedMovie.id).slice(0, 8); 
+    }
   }, [selectedMovie, movies]);
 
   const myListMovies = useMemo(() => {
-    return userMyList.slice(0, 6);
-  }, [userMyList]);
+    return favorites.slice(0, 6);
+  }, [favorites]);
 
-  const ytOpts = { playerVars: { autoplay: 1, modestbranding: 1, playsinline: 1, rel: 0, controls: 1 } };
+  const ytOpts = { 
+    playerVars: { 
+      autoplay: 1, 
+      modestbranding: 1, 
+      playsinline: 1, 
+      rel: 0, 
+      controls: 1 
+    } 
+  };
 
   const onYtReady = (e) => {
     setYtPlayer(e.target);
-    try { if (isMuted) e.target.mute(); else e.target.unMute(); e.target.playVideo?.(); } catch {}
+    try { 
+      if (isMuted) e.target.mute(); 
+      else e.target.unMute(); 
+      e.target.playVideo?.(); 
+    } catch {}
   };
+  
   const onYtError = () => setYoutubeError(true);
 
   const toggleMute = () => {
     setIsMuted(prev => {
       const nxt = !prev;
-      if (ytPlayer) try { nxt ? ytPlayer.mute() : ytPlayer.unMute(); } catch {}
-      if (videoRef.current) try { videoRef.current.muted = nxt; if (!nxt) videoRef.current.play().catch(()=>{}); } catch {}
+      if (ytPlayer) {
+        try { 
+          nxt ? ytPlayer.mute() : ytPlayer.unMute(); 
+        } catch {}
+      }
+      if (videoRef.current) {
+        try { 
+          videoRef.current.muted = nxt; 
+          if (!nxt) videoRef.current.play().catch(() => {}); 
+        } catch {}
+      }
       return nxt;
     });
   };
@@ -85,13 +106,20 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
     el.scrollBy({ left: dir === 'left' ? -amount : amount, behavior: 'smooth' });
   };
 
-  const rootStyle = { fontFamily: "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" };
+  const rootStyle = { 
+    fontFamily: "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial" 
+  };
 
   return (
-    <div className="fixed inset-0 z-[9999] bg-black/75 backdrop-blur-sm" onClick={handleBackdropClick} style={rootStyle}>
+    <div 
+      className="fixed inset-0 z-[9999] bg-black/75 backdrop-blur-sm" 
+      onClick={handleBackdropClick} 
+      style={rootStyle}
+    >
       <div className="absolute inset-0 flex items-center justify-center p-4">
         <div className="w-full sm:w-[950px] bg-[#0b0b0b] rounded-2xl overflow-hidden shadow-2xl max-h-[90vh]">
-          {/* Mobile Navigation Bar - Only shown on mobile */}
+          
+          {/* Mobile Navigation Bar */}
           <div className="sm:hidden flex items-center justify-between px-4 py-3 bg-[#111111] border-b border-gray-800">
             <button onClick={closeModal} className="text-white">
               <X size={20} />
@@ -105,25 +133,35 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
             </button>
           </div>
 
-          {/* close */}
+          {/* Desktop Close Button */}
           <div className="relative hidden sm:block">
-            <button onClick={closeModal} className="absolute right-4 top-4 z-50 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-black shadow">
+            <button 
+              onClick={closeModal} 
+              className="absolute right-4 top-4 z-50 w-10 h-10 rounded-full bg-white/90 flex items-center justify-center text-black shadow"
+            >
               <X size={18} />
             </button>
           </div>
 
-          {/* hero */}
+          {/* Hero Section */}
           <div className="relative w-full" style={{ aspectRatio: "16/9", maxHeight: "50vh" }}>
-            <img src={selectedMovie.image} alt={selectedMovie.title} className="w-full h-full object-cover brightness-75" />
+            <img 
+              src={selectedMovie.image} 
+              alt={selectedMovie.title} 
+              className="w-full h-full object-cover brightness-75" 
+            />
+            
             <div className="absolute left-6 bottom-6 z-40 text-white">
-              <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold leading-tight">{selectedMovie.title}</h2>
-              <div className="text-[10px] sm:text-xs text-gray-200 mt-1">{selectedMovie.year} • {selectedMovie.duration || ""}</div>
+              <h2 className="text-lg sm:text-2xl md:text-3xl font-semibold leading-tight">
+                {selectedMovie.title}
+              </h2>
+              <div className="text-[10px] sm:text-xs text-gray-200 mt-1">
+                {selectedMovie.year} • {selectedMovie.duration || ""}
+              </div>
 
-              {/* compact play button */}
+              {/* Action Buttons */}
               <div className="flex items-center gap-2 sm:gap-3 mt-2 sm:mt-3">
-                <button
-                  className="flex items-center gap-1.5 sm:gap-2 bg-[#2f5cff] hover:bg-[#244de6] text-white px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow"
-                >
+                <button className="flex items-center gap-1.5 sm:gap-2 bg-[#2f5cff] hover:bg-[#244de6] text-white px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow">
                   <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center">
                     <Play size={12} className="sm:hidden" />
                     <Play size={14} className="hidden sm:block" />
@@ -131,8 +169,11 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
                   <span className="text-xs sm:text-sm">Putar</span>
                 </button>
 
-                <button onClick={() => toggleMyList(selectedMovie)} className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/50 flex items-center justify-center">
-                  {isInMyList(selectedMovie.id) ? (
+                <button 
+                  onClick={() => toggleFavorite(selectedMovie)} 
+                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-full border border-white/20 bg-black/50 flex items-center justify-center"
+                >
+                  {isFavorite(selectedMovie.id) ? (
                     <>
                       <Check size={12} className="sm:hidden" />
                       <Check size={14} className="hidden sm:block" />
@@ -145,7 +186,11 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
                   )}
                 </button>
 
-                <button onClick={toggleMute} className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-black/50 flex items-center justify-center border border-white/10" title={isMuted ? "Unmute" : "Mute"}>
+                <button 
+                  onClick={toggleMute} 
+                  className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-black/50 flex items-center justify-center border border-white/10" 
+                  title={isMuted ? "Unmute" : "Mute"}
+                >
                   {isMuted ? (
                     <>
                       <VolumeX size={12} className="sm:hidden"/>
@@ -161,9 +206,17 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
               </div>
             </div>
 
+            {/* YouTube Player */}
             {ytId && !youtubeError && (
               <div className="absolute inset-0 z-30">
-                <YouTube videoId={ytId} opts={{ width: "100%", height: "100%", playerVars: { autoplay: 1, rel: 0 } }} onReady={onYtReady} onError={onYtError} className="w-full h-full" iframeClassName="w-full h-full" />
+                <YouTube 
+                  videoId={ytId} 
+                  opts={{ width: "100%", height: "100%", ...ytOpts }} 
+                  onReady={onYtReady} 
+                  onError={onYtError} 
+                  className="w-full h-full" 
+                  iframeClassName="w-full h-full" 
+                />
               </div>
             )}
           </div>
@@ -173,7 +226,9 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
             <div className="sm:hidden px-4 py-4 border-b border-gray-800">
               <h3 className="text-lg font-semibold mb-3 text-white">Daftar Saya</h3>
               {myListMovies.length === 0 ? (
-                <p className="text-gray-400 text-center py-4 text-sm">Belum ada film di daftar Anda.</p>
+                <p className="text-gray-400 text-center py-4 text-sm">
+                  Belum ada film di daftar Anda.
+                </p>
               ) : (
                 <div className="grid grid-cols-3 gap-3">
                   {myListMovies.map((movie) => (
@@ -186,7 +241,11 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
                       className="relative overflow-hidden rounded-lg"
                       style={{ aspectRatio: '9/14' }}
                     >
-                      <img src={movie.image} alt={movie.title} className="w-full h-full object-cover" />
+                      <img 
+                        src={movie.image} 
+                        alt={movie.title} 
+                        className="w-full h-full object-cover" 
+                      />
                       <div className="absolute bottom-0 left-0 right-0 px-2 py-1 bg-gradient-to-t from-black/80 to-transparent">
                         <p className="text-xs text-white truncate">{movie.title}</p>
                       </div>
@@ -197,39 +256,70 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
             </div>
           )}
 
-          {/* body */}
-          <div className="px-6 py-5 overflow-y-auto" style={{ maxHeight: "40vh", msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-            {/* metadata */}
+          {/* Body Content */}
+          <div 
+            className="px-6 py-5 overflow-y-auto" 
+            style={{ 
+              maxHeight: "40vh", 
+              msOverflowStyle: 'none', 
+              scrollbarWidth: 'none' 
+            }}
+          >
+            {/* Metadata */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               <div className="sm:col-span-2">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="text-xs bg-white/10 px-2 py-1 rounded">{selectedMovie.rating || "–"}</div>
-                  <div className="text-xs text-gray-300">{Array.isArray(selectedMovie.genres) ? selectedMovie.genres.join(" • ") : selectedMovie.genres}</div>
+                  <div className="text-xs bg-white/10 px-2 py-1 rounded">
+                    {selectedMovie.rating || "—"}
+                  </div>
+                  <div className="text-xs text-gray-300">
+                    {Array.isArray(selectedMovie.genres) 
+                      ? selectedMovie.genres.join(" • ") 
+                      : selectedMovie.genres}
+                  </div>
                 </div>
 
-                <p className="text-sm text-gray-300 leading-relaxed">{selectedMovie.description}</p>
+                <p className="text-sm text-gray-300 leading-relaxed">
+                  {selectedMovie.description}
+                </p>
 
                 <div className="mt-4 text-sm text-gray-400">
-                  <div><span className="text-gray-500">Sutradara: </span>{selectedMovie.director || "-"}</div>
-                  <div className="mt-1"><span className="text-gray-500">Pemain: </span>{Array.isArray(selectedMovie.cast) ? selectedMovie.cast.join(", ") : selectedMovie.cast || "-"}</div>
+                  <div>
+                    <span className="text-gray-500">Sutradara: </span>
+                    {selectedMovie.director || "-"}
+                  </div>
+                  <div className="mt-1">
+                    <span className="text-gray-500">Pemain: </span>
+                    {Array.isArray(selectedMovie.cast) 
+                      ? selectedMovie.cast.join(", ") 
+                      : selectedMovie.cast || "-"}
+                  </div>
                 </div>
               </div>
 
               <div className="sm:col-span-1">
                 <div className="bg-[#070707] border border-gray-800 rounded-lg p-3">
-                  <div className="text-sm text-gray-400"><span className="text-gray-500">Tahun:</span> {selectedMovie.year || "-"}</div>
-                  <div className="text-sm text-gray-400 mt-2"><span className="text-gray-500">Genre:</span> {Array.isArray(selectedMovie.genres) ? selectedMovie.genres.join(", ") : selectedMovie.genres || "-"}</div>
-                  <div className="text-sm text-gray-400 mt-2"><span className="text-gray-500">Durasi:</span> {selectedMovie.duration || "-"}</div>
+                  <div className="text-sm text-gray-400">
+                    <span className="text-gray-500">Tahun:</span> {selectedMovie.year || "-"}
+                  </div>
+                  <div className="text-sm text-gray-400 mt-2">
+                    <span className="text-gray-500">Genre:</span> {Array.isArray(selectedMovie.genres) 
+                      ? selectedMovie.genres.join(", ") 
+                      : selectedMovie.genres || "-"}
+                  </div>
+                  <div className="text-sm text-gray-400 mt-2">
+                    <span className="text-gray-500">Durasi:</span> {selectedMovie.duration || "-"}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* RECOMMENDATIONS */}
+            {/* Recommendations Section */}
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-3 text-white">Rekomendasi Serupa</h3>
 
               <div className="relative">
-                {/* left arrow */}
+                {/* Left Arrow */}
                 <button
                   onClick={() => scrollRecommendations('left')}
                   className="absolute left-0 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/50 transition-opacity"
@@ -238,7 +328,7 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
                   <ChevronLeft size={20} />
                 </button>
 
-                {/* cards container */}
+                {/* Cards Container */}
                 <div
                   ref={recRef}
                   className="flex gap-4 overflow-x-auto scroll-smooth px-12 py-2"
@@ -256,17 +346,27 @@ const MovieDetailModal = ({ selectedMovie, closeModal, toggleMyList, isInMyList,
                       style={{ width: 160 }}
                     >
                       <div className="w-full overflow-hidden" style={{ aspectRatio: '2/3' }}>
-                        <img src={m.image} alt={m.title} className="w-full h-full object-cover" />
+                        <img 
+                          src={m.image} 
+                          alt={m.title} 
+                          className="w-full h-full object-cover" 
+                        />
                       </div>
                       <div className="p-2">
-                        <div className="text-sm font-medium text-white truncate">{m.title}</div>
-                        <div className="text-xs text-gray-400 mt-1">{Array.isArray(m.genres) ? m.genres.slice(0,2).join(", ") : m.genres}</div>
+                        <div className="text-sm font-medium text-white truncate">
+                          {m.title}
+                        </div>
+                        <div className="text-xs text-gray-400 mt-1">
+                          {Array.isArray(m.genres) 
+                            ? m.genres.slice(0, 2).join(", ") 
+                            : m.genres}
+                        </div>
                       </div>
                     </button>
                   ))}
                 </div>
 
-                {/* right arrow */}
+                {/* Right Arrow */}
                 <button
                   onClick={() => scrollRecommendations('right')}
                   className="absolute right-0 top-1/2 -translate-y-1/2 z-40 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center hover:bg-black/50 transition-opacity"
